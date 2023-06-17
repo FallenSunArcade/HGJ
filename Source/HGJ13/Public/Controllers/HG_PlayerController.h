@@ -6,6 +6,9 @@
 #include "GameFramework/PlayerController.h"
 #include "HG_PlayerController.generated.h"
 
+
+class UUserWidget;
+
 UCLASS()
 class HGJ13_API AHG_PlayerController : public APlayerController
 {
@@ -22,4 +25,8 @@ protected:
 	virtual void Tick(float DeltaTime) override;
 
 	void Interact();
+
+private:
+	UPROPERTY(EditAnywhere, Category = "HUD")
+	TSubclassOf<UUserWidget> HudWidgetClass;
 };

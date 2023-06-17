@@ -6,6 +6,7 @@
 #include "UObject/Interface.h"
 #include "HG_Interactable.generated.h"
 
+class APlayerController;
 
 UINTERFACE(MinimalAPI)
 class UHG_Interactable : public UInterface
@@ -20,5 +21,5 @@ class HGJ13_API IHG_Interactable
 
 public:
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Interaction")
-	void OnInteraction();
+	void OnInteraction(APlayerController* PlayerController);
 };

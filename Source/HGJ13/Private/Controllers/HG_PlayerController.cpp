@@ -52,7 +52,7 @@ void AHG_PlayerController::Interact()
 		if (UHG_DialogComponent* DialogComponent =
 			Cast<UHG_DialogComponent>(Hit.GetActor()->GetComponentByClass(UHG_DialogComponent::StaticClass())))
 		{
-			DialogComponent->OnInteraction_Implementation();
+			DialogComponent->OnInteraction_Implementation(this);
 		}
 	}
 }
