@@ -6,6 +6,7 @@
 #include "Components/HG_DialogComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "ToolBox/HG_LogCategories.h"
+#include "Blueprint/UserWidget.h"
 
 
 AHG_PlayerController::AHG_PlayerController()
@@ -16,7 +17,17 @@ AHG_PlayerController::AHG_PlayerController()
 void AHG_PlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	if(*HudWidgetClass)
+	{
+		Hud = CreateWidget(this, HudWidgetClass);
+
+		if(Hud)
+		{
+			Hud->AddToViewport();
+			Hud->SetVisibility(ESlateVisibility::Visible);
+		}
+	}
 }
 
 void AHG_PlayerController::SetupInputComponent()

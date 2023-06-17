@@ -29,4 +29,7 @@ protected:
 private:
 	UPROPERTY(EditAnywhere, Category = "HUD")
 	TSubclassOf<UUserWidget> HudWidgetClass;
+
+	UPROPERTY()
+	UUserWidget* Hud;
 };
