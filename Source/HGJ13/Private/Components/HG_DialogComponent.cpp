@@ -16,8 +16,11 @@ UHG_DialogComponent::UHG_DialogComponent()
 void UHG_DialogComponent::OnInteraction_Implementation(APlayerController* PlayerController)
 {
 	IHG_Interactable::OnInteraction_Implementation(PlayerController);
-
 	UE_LOG(LogInteraction, Display, TEXT("OnInteraction_Implementation (%s)"), *GetName());
+
+	FInputModeUIOnly InputModeUIOnly;
+
+	PlayerController->SetInputMode(InputModeUIOnly);
 }
 
 void UHG_DialogComponent::BeginPlay()
