@@ -11,6 +11,8 @@ UHG_DialogComponent::UHG_DialogComponent()
 	PrimaryComponentTick.bCanEverTick = false;
 	
 	InteractionWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("Interaction Widget"));
+
+	//InteractionWidget->GetWidget()->SetVisibility(ESlateVisibility::Hidden);
 }
 
 void UHG_DialogComponent::OnInteraction_Implementation(APlayerController* PlayerController)
