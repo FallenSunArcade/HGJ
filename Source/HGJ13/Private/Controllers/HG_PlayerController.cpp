@@ -17,7 +17,11 @@ AHG_PlayerController::AHG_PlayerController()
 void AHG_PlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-
+	
+	FInputModeGameOnly InputModeGameOnly;
+	SetInputMode(InputModeGameOnly);
+	SetShowMouseCursor(false);
+	
 	if(*HudWidgetClass)
 	{
 		Hud = CreateWidget(this, HudWidgetClass);
