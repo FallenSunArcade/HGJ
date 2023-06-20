@@ -6,6 +6,10 @@
 #include "Blueprint/UserWidget.h"
 #include "HG_HudOverlay.generated.h"
 
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOverlayClickedDelegate);
+
+
 class UHG_GameAlerts;
 class UHG_Dialog;
 
@@ -22,6 +26,9 @@ public:
 	UHG_GameAlerts* GetGameAlertsWidget() const {return GameAlerts;}
 
 	UHG_Dialog* GetDialogWidget() const {return Dialogs;}
+
+	UPROPERTY(BlueprintAssignable)
+	FOverlayClickedDelegate OverlayClickedDelegate;
 	
 private:
 	UPROPERTY(meta = (BindWidget))
