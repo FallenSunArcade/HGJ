@@ -17,6 +17,9 @@ public:
 	AHG_GameBoothBase();
 
 protected:
-	UPROPERTY(EditAnywhere, Category = "StateTree")
+	UPROPERTY(EditAnywhere, Category = "Game Booth")
 	UStateTreeComponent* StateTree = nullptr;
+
+	UPROPERTY(EditAnywhere, Category = "Game Booth")
+	bool bHasTickets = false;
 };
