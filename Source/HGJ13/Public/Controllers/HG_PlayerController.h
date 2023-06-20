@@ -7,7 +7,7 @@
 #include "HG_PlayerController.generated.h"
 
 
-class UUserWidget;
+class UHG_HudOverlay;
 
 UCLASS()
 class HGJ13_API AHG_PlayerController : public APlayerController
@@ -17,6 +17,8 @@ class HGJ13_API AHG_PlayerController : public APlayerController
 public:
 	AHG_PlayerController();
 
+	UHG_HudOverlay* GetHudOverlay() const {return HudOverlay;}
+ 
 protected:
 	virtual void BeginPlay() override;
 
@@ -31,5 +33,5 @@ private:
 	TSubclassOf<UUserWidget> HudWidgetClass;
 
 	UPROPERTY()
-	UUserWidget* Hud;
+	UHG_HudOverlay* HudOverlay;
 };

@@ -6,7 +6,8 @@
 #include "Components/HG_DialogComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "ToolBox/HG_LogCategories.h"
-#include "Blueprint/UserWidget.h"
+#include "UI/HG_HudOverlay.h"
+
 
 
 AHG_PlayerController::AHG_PlayerController()
@@ -18,18 +19,18 @@ void AHG_PlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	FInputModeGameOnly InputModeGameOnly;
+	const FInputModeGameOnly InputModeGameOnly;
 	SetInputMode(InputModeGameOnly);
 	SetShowMouseCursor(false);
 	
 	if(*HudWidgetClass)
 	{
-		Hud = CreateWidget(this, HudWidgetClass);
+		HudOverlay = CreateWidget<UHG_HudOverlay>(this, HudWidgetClass);
 
-		if(Hud)
+		if(HudOverlay)
 		{
-			Hud->AddToViewport();
-			Hud->SetVisibility(ESlateVisibility::Visible);
+			HudOverlay->AddToViewport();
+			HudOverlay->SetVisibility(ESlateVisibility::Visible);
 		}
 	}
 }
@@ -59,8 +60,7 @@ void AHG_PlayerController::Interact()
 	FCollisionQueryParams Params;
 	Params.AddIgnoredActor(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 	FHitResult Hit;
-
-	DrawDebugLine(GetWorld(), Location, End, FColor::Red, true);
+	
 	if(GetWorld()->LineTraceSingleByChannel(Hit, Location, End, ECC_GameTraceChannel1, Params))
 	{
 		

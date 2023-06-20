@@ -15,8 +15,7 @@ FReply UHG_HudOverlay::NativeOnMouseButtonDown(const FGeometry& InGeometry, cons
 
 	if(InMouseEvent.GetEffectingButton() == EKeys::LeftMouseButton)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red,
-	FString::Printf(TEXT("Hud overlay clicked")));
+		OverlayClickedDelegate.Broadcast();
 	}
 
 	

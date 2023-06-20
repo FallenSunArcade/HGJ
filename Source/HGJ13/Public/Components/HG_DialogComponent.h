@@ -11,7 +11,7 @@ class AAIController;
 class UHG_HudOverlay;
 class UBehaviorTree;
 class UWidgetComponent;
-class APlayerController;
+class AHG_PlayerController;
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class HGJ13_API UHG_DialogComponent : public UActorComponent, public IHG_Interactable
@@ -20,7 +20,7 @@ class HGJ13_API UHG_DialogComponent : public UActorComponent, public IHG_Interac
 
 public:
 	UHG_DialogComponent();
-	virtual void OnInteraction_Implementation(APlayerController* PlayerController) override;
+	virtual void OnInteraction_Implementation(AHG_PlayerController* PlayerController) override;
 
 	UWidgetComponent* GetInteractionWidget() const {return InteractionWidget;}
 	
@@ -36,5 +36,8 @@ private:
 	
 	UPROPERTY()
 	AAIController* AIController;
+
+	UPROPERTY()
+	AHG_PlayerController* PlayerControllerRef;
 };
 
