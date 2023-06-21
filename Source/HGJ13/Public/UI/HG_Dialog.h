@@ -17,6 +17,12 @@ class HGJ13_API UHG_Dialog : public UUserWidget
 
 public:
 	virtual void NativeOnInitialized() override;
+	
+	void SetWidgetIndex(int32 Index);
+
+	void SetActiveWidgetVisibility(bool IsVisible);
+	
+	void SetSpeakText(const FText& Text);
 
 private:
 	UPROPERTY(meta = (BindWidget))

@@ -22,7 +22,11 @@ public:
 	UHG_DialogComponent();
 	virtual void OnInteraction_Implementation(AHG_PlayerController* PlayerController) override;
 
+	void EndInteraction();
+	
 	UWidgetComponent* GetInteractionWidget() const {return InteractionWidget;}
+
+	bool CanSpeak() const {return bCanSpeak;}
 	
 protected:
 	virtual void BeginPlay() override;
@@ -39,5 +43,7 @@ private:
 
 	UPROPERTY()
 	AHG_PlayerController* PlayerControllerRef;
+
+	bool bCanSpeak = false;
 };
 

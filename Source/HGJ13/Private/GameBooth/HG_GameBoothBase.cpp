@@ -2,12 +2,15 @@
 
 
 #include "GameBooth/HG_GameBoothBase.h"
-#include "Components/StateTreeComponent.h"
+#include "Components/HG_DialogComponent.h"
+#include "Components/WidgetComponent.h"
 
 
 AHG_GameBoothBase::AHG_GameBoothBase()
 {
 	PrimaryActorTick.bCanEverTick = false;
 
-	StateTree = CreateDefaultSubobject<UStateTreeComponent>(TEXT("State Tree"));
+	DialogComponent = CreateDefaultSubobject<UHG_DialogComponent>(TEXT("Dialog Component"));
+
+	DialogComponent->GetInteractionWidget()->SetupAttachment(RootComponent);
 }

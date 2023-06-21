@@ -6,7 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "HG_GameBoothBase.generated.h"
 
-class UStateTreeComponent;
+class UHG_DialogComponent;
 
 UCLASS()
 class HGJ13_API AHG_GameBoothBase : public AActor
@@ -17,8 +17,8 @@ public:
 	AHG_GameBoothBase();
 
 protected:
-	UPROPERTY(EditAnywhere, Category = "Game Booth")
-	UStateTreeComponent* StateTree = nullptr;
+	UPROPERTY(EditAnywhere)
+	UHG_DialogComponent* DialogComponent;
 
 	UPROPERTY(EditAnywhere, Category = "Game Booth")
 	bool bHasTickets = false;
