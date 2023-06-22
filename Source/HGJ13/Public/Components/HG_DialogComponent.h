@@ -7,6 +7,8 @@
 #include "Interfaces/HG_Interactable.h"
 #include "HG_DialogComponent.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FSpeakingDelegate, int32, DialogueIndex, bool, IsHostile);
+
 class AAIController;
 class UHG_HudOverlay;
 class UBehaviorTree;
@@ -27,6 +29,9 @@ public:
 	UWidgetComponent* GetInteractionWidget() const {return InteractionWidget;}
 
 	bool CanSpeak() const {return bCanSpeak;}
+
+	UPROPERTY(BlueprintAssignable)
+	FSpeakingDelegate SpeakingDelegate;
 	
 protected:
 	virtual void BeginPlay() override;

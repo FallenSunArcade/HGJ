@@ -34,9 +34,6 @@ EBTNodeResult::Type UHG_Speak::ExecuteTask(UBehaviorTreeComponent& OwnerComp, ui
 
 void UHG_Speak::HudWasClicked()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red,
-	FString::Printf(TEXT("Hud overlay clicked task complete. (%s)"), *Dialog.ToString()));
-
 	HudOverlay->OverlayClickedDelegate.RemoveAll(this);
 	UHG_Dialog* DialogWidget = HudOverlay->GetDialogWidget();
 	DialogWidget->SetActiveWidgetVisibility(false);

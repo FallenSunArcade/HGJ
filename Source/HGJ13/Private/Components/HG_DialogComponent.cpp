@@ -32,14 +32,12 @@ void UHG_DialogComponent::OnInteraction_Implementation(AHG_PlayerController* Pla
 	if(PlayerController)
 	{
 		FInputModeUIOnly InputModeUIOnly;
-		InputModeUIOnly.SetWidgetToFocus(PlayerController->GetHudOverlay()->GetCachedWidget());
 		PlayerController->SetInputMode(InputModeUIOnly);
 		PlayerController->FlushPressedKeys();
 		PlayerController->SetShowMouseCursor(true);
 		
 		PlayerControllerRef = PlayerController;
 		
-
 		if(UBlackboardComponent* BlackboardComponent = AIController->GetBlackboardComponent())
 		{
 			BlackboardComponent->SetValueAsObject("Hud", PlayerControllerRef->GetHudOverlay());
