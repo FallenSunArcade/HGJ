@@ -63,11 +63,10 @@ void AHG_PlayerController::Interact()
 	
 	if(GetWorld()->LineTraceSingleByChannel(Hit, Location, End, ECC_GameTraceChannel1, Params))
 	{
-		
-		if (UHG_DialogComponent* DialogComponent =
-			Cast<UHG_DialogComponent>(Hit.GetActor()->GetComponentByClass(UHG_DialogComponent::StaticClass())))
+		if (IHG_Interactable* InteractionComponent =
+			Cast<IHG_Interactable>(Hit.GetActor()->FindComponentByInterface(UHG_Interactable::StaticClass())))
 		{
-			DialogComponent->OnInteraction_Implementation(this);
+			InteractionComponent->OnInteraction_Implementation(this);
 		}
 	}
 }

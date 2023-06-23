@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "UI/HG_DialogObject.h"
 #include "HG_Dialog.generated.h"
 
 class UWidgetSwitcher;
@@ -23,6 +24,8 @@ public:
 	void SetActiveWidgetVisibility(bool IsVisible);
 	
 	void SetSpeakText(const FText& Text);
+
+	void SetReplies(const TArray<UHG_DialogObject*>& Replies);
 
 private:
 	UPROPERTY(meta = (BindWidget))

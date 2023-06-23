@@ -3,6 +3,7 @@
 
 #include "UI/HG_Dialog.h"
 
+#include "Components/ListView.h"
 #include "Components/TextBlock.h"
 #include "Components/WidgetSwitcher.h"
 
@@ -35,4 +36,16 @@ void UHG_Dialog::SetSpeakText(const FText& Text)
 {
 	check(NPCText);
 	NPCText->SetText(Text);
+}
+
+void UHG_Dialog::SetReplies(const TArray<UHG_DialogObject*>& Replies)
+{
+	 check(PlayerRepliesList);
+
+	PlayerRepliesList->ClearListItems();
+
+	for(const auto& Reply : Replies)
+	{
+		PlayerRepliesList->AddItem(Reply);
+	}
 }

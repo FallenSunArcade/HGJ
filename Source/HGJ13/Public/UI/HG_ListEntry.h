@@ -19,7 +19,22 @@ class HGJ13_API UHG_ListEntry : public UUserWidget, public IUserObjectListEntry
 public:
 	virtual void NativeOnListItemObjectSet(UObject* ListItemObject) override;
 
+	UFUNCTION()
+	void OnButtonClicked();
+
+	UFUNCTION()
+	void OnButtonHovered();
+
+	UFUNCTION()
+	void OnButtonUnHovered();
+	
 private:
+	UPROPERTY(meta = (BindWidget))
+	UButton* DialogButton;
+
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* DialogText;
+	
 	UPROPERTY()
 	UHG_DialogObject * DialogObject = nullptr;
 };
