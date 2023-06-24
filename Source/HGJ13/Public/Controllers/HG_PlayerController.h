@@ -6,7 +6,7 @@
 #include "GameFramework/PlayerController.h"
 #include "HG_PlayerController.generated.h"
 
-
+ 
 class UHG_HudOverlay;
 
 UCLASS()

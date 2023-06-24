@@ -31,6 +31,7 @@ void AHG_PlayerController::BeginPlay()
 		{
 			HudOverlay->AddToViewport();
 			HudOverlay->SetVisibility(ESlateVisibility::Visible);
+			HudOverlay->StartGameTransition();
 		}
 	}
 }

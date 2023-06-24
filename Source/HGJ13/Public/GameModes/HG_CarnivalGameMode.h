@@ -6,9 +6,7 @@
 #include "UObject/Object.h"
 #include "HG_CarnivalGameMode.generated.h"
 
-/**
- * 
- */
+
 UCLASS()
 class HGJ13_API UHG_CarnivalGameMode : public UObject
 {

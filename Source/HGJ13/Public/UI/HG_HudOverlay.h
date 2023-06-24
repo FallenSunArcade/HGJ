@@ -12,6 +12,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOverlayClickedDelegate);
 
 class UHG_GameAlerts;
 class UHG_Dialog;
+class UImage;
 
 UCLASS()
 class HGJ13_API UHG_HudOverlay : public UUserWidget
@@ -27,6 +28,11 @@ public:
 
 	UHG_Dialog* GetDialogWidget() const {return Dialogs;}
 
+	void StartGameTransition(float Delay = 2.f, bool WithFadeIn = false);
+
+	UFUNCTION()
+	void Transitioning();
+
 	UPROPERTY(BlueprintAssignable)
 	FOverlayClickedDelegate OverlayClickedDelegate;
 	
@@ -36,4 +42,11 @@ private:
 
 	UPROPERTY(meta = (BindWidget))
 	UHG_Dialog* Dialogs;
+
+	UPROPERTY(meta = (BindWidget))
+	UImage* Transition;
+
+	FTimerHandle GameTransitionHandle;
+
+	float Opacity = 0.f;
 };

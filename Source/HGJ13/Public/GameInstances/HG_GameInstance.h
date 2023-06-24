@@ -6,9 +6,7 @@
 #include "Engine/GameInstance.h"
 #include "HG_GameInstance.generated.h"
 
-/**
- * 
- */
+
 UCLASS()
 class HGJ13_API UHG_GameInstance : public UGameInstance
 {
