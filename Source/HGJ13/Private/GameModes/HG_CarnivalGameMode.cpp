@@ -1,4 +1,81 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
+// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "GameModes/HG_CarnivalGameMode.h"
+#include "Characters/HG_BaseCharacter.h"
+#include "Controllers/HG_PlayerController.h"
+#include "GameFramework/Character.h"
+#include "GameInstances/HG_GameInstance.h"
+#include "Kismet/GameplayStatics.h"
+
+
+AHG_CarnivalGameMode::AHG_CarnivalGameMode()
+{
+	PrimaryActorTick.bCanEverTick = false;
+}
+
+void AHG_CarnivalGameMode::BeginPlay()
+{
+	Super::BeginPlay();
+
+	PlayerControllerRef = Cast<AHG_PlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
+	check(PlayerControllerRef);
+
+	GameInstanceRef = Cast<UHG_GameInstance>(GetGameInstance());
+	check(GameInstanceRef);
+	
+	switch(GameInstanceRef->GetCurrentCarnivalBooth())
+	{
+	case ECarnival::ShootingBooth:
+		SetupShootingBooth();
+		break;
+	case ECarnival::WhackAMole:
+		SetupWackAMole();
+		break;
+	case ECarnival::DunkTank:
+		SetupDunkBooth();
+		break;
+	case ECarnival::FerrisWheel:
+		SetupFerrisWheel();
+		break;
+	default:
+		break;
+	}
+}
+
+void AHG_CarnivalGameMode::SetupShootingBooth()
+{
+	SetPlayerStart(TEXT("ShootingBooth"));
+}
+
+void AHG_CarnivalGameMode::SetupWackAMole()
+{
+	SetPlayerStart(TEXT("WhackAMole"));
+}
+
+void AHG_CarnivalGameMode::SetupDunkBooth()
+{
+	SetPlayerStart(TEXT("DunkBooth"));
+}
+
+void AHG_CarnivalGameMode::SetupFerrisWheel()
+{
+	SetPlayerStart(TEXT("FerrisWheel"));
+}
+
+void AHG_CarnivalGameMode::SetPlayerStart(const FString& StartTag)
+{
+	if(const AActor* PlayerStart = FindPlayerStart(PlayerControllerRef, StartTag))
+	{
+		ACharacter* Player = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
+
+		Player->SetActorTransform(PlayerStart->GetTransform());
+	}
+}
+
+void AHG_CarnivalGameMode::AddShootingBoothCharacter(AHG_BaseCharacter* Spawner, FString Name)
+{
+	ShootingBoothCharacters.Emplace(Name, Spawner);
+}
+
+
