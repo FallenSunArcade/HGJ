@@ -14,4 +14,11 @@ class HGJ13_API UHG_StartShootingRound : public UBTTask_BlackboardBase
 
 public:
 	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
+
+	UFUNCTION()
+	void RoundOver(bool Won);
+
+private:
+	UPROPERTY()
+	UBehaviorTreeComponent* BTComponent = nullptr;
 };

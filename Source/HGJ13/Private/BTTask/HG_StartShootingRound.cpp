@@ -2,18 +2,38 @@
 
 
 #include "BTTask/HG_StartShootingRound.h"
-#include "Components/HG_DialogComponent.h"
 #include "BehaviorTree/BlackboardComponent.h"
+#include "GameBooth/HG_ShootingBooth.h"
+#include "GameModes/HG_CarnivalGameMode.h"
+#include "Kismet/GameplayStatics.h"
 
 EBTNodeResult::Type UHG_StartShootingRound::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
 	const UBlackboardComponent* BlackboardComponent = OwnerComp.GetBlackboardComponent();
 	check(BlackboardComponent);
+
+	BTComponent = &OwnerComp;
 	
-	if(UHG_DialogComponent* DialogComponent = Cast<UHG_DialogComponent>(BlackboardComponent->GetValueAsObject("Owner")))
+	if(const AHG_CarnivalGameMode* GameMode = Cast<AHG_CarnivalGameMode>(UGameplayStatics::GetGameMode(GetWorld())))
 	{
-		DialogComponent->EndInteraction();
+		AHG_ShootingBooth* ShootingBooth = GameMode->GetShootingBooth();
+
+		check(ShootingBooth);
+
+		ShootingBooth->RoundOverDelegate.AddDynamic(this,  &UHG_StartShootingRound::RoundOver);
+		ShootingBooth->StartRound();
 	}
 	
-	return EBTNodeResult::Succeeded;
+	return EBTNodeResult::InProgress;
+}
+
+void UHG_StartShootingRound::RoundOver(bool Won)
+{
+	if(const AHG_CarnivalGameMode* GameMode = Cast<AHG_CarnivalGameMode>(UGameplayStatics::GetGameMode(GetWorld())))
+	{
+		AHG_ShootingBooth* ShootingBooth = GameMode->GetShootingBooth();
+		check(ShootingBooth);
+		ShootingBooth->RoundOverDelegate.RemoveAll(this);
+		FinishLatentTask(*BTComponent, EBTNodeResult::Succeeded);
+	}
 }

@@ -9,6 +9,7 @@
 class AHG_PlayerController;
 class UHG_GameInstance;
 class AHG_BaseCharacter;
+class AHG_ShootingBooth;
 
 UCLASS()
 class HGJ13_API AHG_CarnivalGameMode : public AGameModeBase
@@ -32,6 +33,10 @@ public:
 
 	void AddShootingBoothCharacter(AHG_BaseCharacter* Spawner, FString Name);
 
+	void SetShootingBooth(AHG_ShootingBooth* Booth) { ShootingBooth = Booth;}
+
+	AHG_ShootingBooth* GetShootingBooth() const { return ShootingBooth;}
+
 private:
 	UPROPERTY()
 	AHG_PlayerController* PlayerControllerRef;
@@ -50,6 +55,9 @@ private:
 
 	UPROPERTY()
 	TMap<FString, AHG_BaseCharacter*> FerrisWheelCharacters;
+
+	UPROPERTY()
+	AHG_ShootingBooth* ShootingBooth;
 };
 
 

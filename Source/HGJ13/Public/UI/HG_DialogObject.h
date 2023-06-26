@@ -21,7 +21,7 @@ struct FPlayerReply
 	FText Reply;
 	
 	UPROPERTY(EditAnywhere)
-	int32 Index;
+	int32 Index = 0;
 };
 
 UCLASS()

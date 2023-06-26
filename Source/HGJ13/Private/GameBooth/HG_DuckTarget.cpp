@@ -68,3 +68,10 @@ void AHG_DuckTarget::Tick(float DeltaSeconds)
 	}
 }
 
+void AHG_DuckTarget::Destroyed()
+{
+	Super::Destroyed();
+
+	DuckDestroyedDelegate.Broadcast();
+}
+

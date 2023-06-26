@@ -20,6 +20,14 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void StartRound();
 
+	UFUNCTION()
+	void RoundTick();
+
+	UFUNCTION()
+	void RemoveDuck();
+
+	void SetupTargets(float LoopTime, bool AddHeads);
+
 protected:
 	virtual void BeginPlay() override;
 
@@ -41,4 +49,13 @@ private:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Track", meta = (AllowPrivateAccess))
 	TSubclassOf<AHG_DuckTarget> HeadTargetClass;
+
+	UPROPERTY()
+	TArray<AHG_DuckTarget*> Targets;
+	
+	FTimerHandle RoundTimerHandle;
+
+	int32 RoundTime = 0;
+
+	int32 NumTargets = 0;
 };

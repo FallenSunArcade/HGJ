@@ -7,6 +7,8 @@
 #include "GameFramework/Actor.h"
 #include "HG_DuckTarget.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FDuckDestroyedDelegate);
+
 class UCapsuleComponent;
 class UStaticMeshComponent;
 class USplineComponent;
@@ -24,11 +26,15 @@ public:
 
 	UFUNCTION()
 	void ProcessMovementTimeline(float Value);
+
+	FDuckDestroyedDelegate DuckDestroyedDelegate;
 	
 protected:
 	virtual void BeginPlay() override;
 
 	virtual void Tick(float DeltaSeconds) override;
+
+	virtual void Destroyed() override;
 
 private:
 	UPROPERTY(EditAnywhere, Category = "Components")
