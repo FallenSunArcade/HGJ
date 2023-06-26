@@ -22,4 +22,7 @@ class HGJ13_API IHG_Interactable
 public:
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Interaction")
 	void OnInteraction(AHG_PlayerController* PlayerController);
+
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Interaction")
+	void SetInteractionVisibility(bool Visible);
 };

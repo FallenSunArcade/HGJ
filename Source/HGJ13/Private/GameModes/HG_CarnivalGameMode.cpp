@@ -6,6 +6,7 @@
 #include "Controllers/HG_PlayerController.h"
 #include "GameFramework/Character.h"
 #include "GameInstances/HG_GameInstance.h"
+#include "Interfaces/HG_Interactable.h"
 #include "Kismet/GameplayStatics.h"
 
 
@@ -46,6 +47,15 @@ void AHG_CarnivalGameMode::BeginPlay()
 void AHG_CarnivalGameMode::SetupShootingBooth()
 {
 	SetPlayerStart(TEXT("ShootingBooth"));
+
+	if(ShootingBoothCharacters.Find("Mom"))
+	{
+		if (IHG_Interactable* InteractionComponent =
+		Cast<IHG_Interactable>(ShootingBoothCharacters["Mom"]->FindComponentByInterface(UHG_Interactable::StaticClass())))
+		{
+			InteractionComponent->SetInteractionVisibility_Implementation(true);
+		}
+	}
 }
 
 void AHG_CarnivalGameMode::SetupWackAMole()

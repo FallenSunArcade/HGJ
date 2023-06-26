@@ -17,6 +17,9 @@ class HGJ13_API AHG_ShootingBooth : public AHG_GameBoothBase
 public:
 	AHG_ShootingBooth();
 
+	UFUNCTION(BlueprintCallable)
+	void StartRound();
+
 protected:
 	virtual void BeginPlay() override;
 
@@ -35,4 +38,7 @@ private:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Track", meta = (AllowPrivateAccess))
 	TSubclassOf<AHG_DuckTarget> DuckTargetClass;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Track", meta = (AllowPrivateAccess))
+	TSubclassOf<AHG_DuckTarget> HeadTargetClass;
 };

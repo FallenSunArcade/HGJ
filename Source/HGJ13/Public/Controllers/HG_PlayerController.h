@@ -18,6 +18,8 @@ public:
 	AHG_PlayerController();
 
 	UHG_HudOverlay* GetHudOverlay() const {return HudOverlay;}
+
+	void MakeTransition();
  
 protected:
 	virtual void BeginPlay() override;

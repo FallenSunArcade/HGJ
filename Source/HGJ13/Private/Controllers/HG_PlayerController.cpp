@@ -72,3 +72,8 @@ void AHG_PlayerController::Interact()
 	}
 }
 
+void AHG_PlayerController::MakeTransition()
+{
+	HudOverlay->StartGameTransition(1.f);
+}
+
