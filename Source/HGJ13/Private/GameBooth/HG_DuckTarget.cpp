@@ -2,7 +2,6 @@
 
 
 #include "GameBooth/HG_DuckTarget.h"
-
 #include "Components/CapsuleComponent.h"
 #include "Components/SplineComponent.h"
 
