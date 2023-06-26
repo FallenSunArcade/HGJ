@@ -6,6 +6,16 @@
 #include "GameFramework/Actor.h"
 #include "HG_GameBoothBase.generated.h"
 
+UENUM(BlueprintType)
+enum class ERounds : uint8 {
+	Round1,
+	Round2,
+	Round3
+};
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FRoundStartDelegate, int32, RoundNumber);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FRoundOverDelegate, bool, Won);
+
 class UHG_DialogComponent;
 
 UCLASS()
@@ -16,10 +26,25 @@ class HGJ13_API AHG_GameBoothBase : public AActor
 public:
 	AHG_GameBoothBase();
 
+	virtual void BeginPlay() override;
+
+	FRoundStartDelegate RoundStartDelegate;
+	
+	FRoundOverDelegate RoundOverDelegate;
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void RoundStart(int32 RoundNumber);
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void RoundOver(bool Won);
+	
 protected:
 	UPROPERTY(EditAnywhere)
 	UHG_DialogComponent* DialogComponent;
 
 	UPROPERTY(EditAnywhere, Category = "Game Booth")
 	bool bHasTickets = false;
+	
+	UPROPERTY(EditAnywhere, Category = "Game Booth")
+	ERounds CurrentRound = ERounds::Round1;
 };

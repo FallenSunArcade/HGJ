@@ -15,13 +15,14 @@ UHG_DialogComponent::UHG_DialogComponent()
 	PrimaryComponentTick.bCanEverTick = false; 
 	
 	InteractionWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("Interaction Widget"));
-
-	//InteractionWidget->GetWidget()->SetVisibility(ESlateVisibility::Hidden);
 }
 
 void UHG_DialogComponent::OnInteraction_Implementation(AHG_PlayerController* PlayerController)
 {
 	IHG_Interactable::OnInteraction_Implementation(PlayerController);
+	
+	InteractionWidget->SetVisibility(false);
+	
 	UE_LOG(LogInteraction, Display, TEXT("OnInteraction_Implementation (%s)"), *GetName());
 
 	if(DialogTree)
@@ -47,6 +48,12 @@ void UHG_DialogComponent::OnInteraction_Implementation(AHG_PlayerController* Pla
 
 }
 
+void UHG_DialogComponent::SetInteractionVisibility_Implementation(bool Visible)
+{
+
+	InteractionWidget->SetVisibility(Visible);
+}
+
 void UHG_DialogComponent::EndInteraction()
 {
 	check(PlayerControllerRef);
@@ -62,6 +69,5 @@ void UHG_DialogComponent::BeginPlay()
 {
 	Super::BeginPlay();
 	AIController = GetWorld()->SpawnActor<AAIController>(AAIController::StaticClass());
-
 	check(AIController);
 }

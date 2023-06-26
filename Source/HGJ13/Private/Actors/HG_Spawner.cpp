@@ -24,9 +24,8 @@ void AHG_Spawner::BeginPlay()
 		if(AHG_CarnivalGameMode* GameMode = Cast<AHG_CarnivalGameMode>(UGameplayStatics::GetGameMode(GetWorld())))
 		{
 			AHG_BaseCharacter* CharacterRef = GetWorld()->SpawnActor<AHG_BaseCharacter>(CharacterClass, GetActorTransform());
-			// AHG_BaseCharacter* CharacterRef = GetWorld()->SpawnActor<AHG_BaseCharacter>(CharacterClass, GetActorTransform());
-			// check(CharacterRef);
-			// GameMode->AddShootingBoothCharacter(CharacterRef, CharacterName);
+			check(CharacterRef);
+			GameMode->AddShootingBoothCharacter(CharacterRef, CharacterName);
 		}
 	}
 

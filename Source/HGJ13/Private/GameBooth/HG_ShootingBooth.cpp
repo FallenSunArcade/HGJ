@@ -2,11 +2,9 @@
 
 
 #include "GameBooth/HG_ShootingBooth.h"
-
 #include "Components/SplineComponent.h"
 #include "GameBooth/HG_DuckTarget.h"
-#include "StateTree.h"
-#include "StateTreeSchema.h"
+
 
 
 AHG_ShootingBooth::AHG_ShootingBooth()
@@ -26,6 +24,32 @@ AHG_ShootingBooth::AHG_ShootingBooth()
 
 	SplineComponent = CreateDefaultSubobject<USplineComponent>(TEXT("Spline"));
 	SplineComponent->SetupAttachment(Track);
+}
+
+void AHG_ShootingBooth::StartRound()
+{
+	
+	switch (CurrentRound)
+	{
+	case ERounds::Round1:
+		{
+			RoundStartDelegate.Broadcast(1);
+			break;
+		}
+	case ERounds::Round2:
+		{
+			RoundStartDelegate.Broadcast(2);
+			break;
+		}
+	case ERounds::Round3:
+		{
+			RoundStartDelegate.Broadcast(3);
+			break;
+		}
+	default:
+		break;
+		
+	}
 }
 
 void AHG_ShootingBooth::BeginPlay()

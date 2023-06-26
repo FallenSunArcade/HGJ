@@ -14,6 +14,8 @@ class UHG_HudOverlay;
 class UBehaviorTree;
 class UWidgetComponent;
 class AHG_PlayerController;
+class UUserWidget;
+class AActor;
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class HGJ13_API UHG_DialogComponent : public UActorComponent, public IHG_Interactable
@@ -22,13 +24,20 @@ class HGJ13_API UHG_DialogComponent : public UActorComponent, public IHG_Interac
 
 public:
 	UHG_DialogComponent();
+	
 	virtual void OnInteraction_Implementation(AHG_PlayerController* PlayerController) override;
+
+	virtual void SetInteractionVisibility_Implementation(bool Visible) override;
 
 	void EndInteraction();
 	
 	UWidgetComponent* GetInteractionWidget() const {return InteractionWidget;}
 
 	bool CanSpeak() const {return bCanSpeak;}
+
+	void SetOwningActor(AActor* Actor) {OwningActor = Actor;}
+
+	AActor* GetOwningActor() const { return OwningActor;}
 
 	UPROPERTY(BlueprintAssignable)
 	FSpeakingDelegate SpeakingDelegate;
@@ -49,6 +58,12 @@ private:
 	UPROPERTY()
 	AHG_PlayerController* PlayerControllerRef;
 
+	UPROPERTY()
+	UUserWidget* InteractionWidgetRef;
+
+	UPROPERTY()
+	AActor* OwningActor;
+	
 	bool bCanSpeak = false;
 };
 
