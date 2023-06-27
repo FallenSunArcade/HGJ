@@ -8,15 +8,9 @@ Binaries/*
 Platforms/*
 .vsconfig
 Build/
-Content/StarterContent/*
 Content/MetaHumans/*
 Content/FirstPerson/*
 Content/__ExternalActors__/*
 Content/__ExternalObjects__/*
-Content/FirstPersonArms/* 
 Content/LevelPrototyping/*
 Content/Megascans/*
-Content/MSPresets/*
-Content/Maps/Dreamland1 Assets/*
-Content/Maps/Underwaterland_assets/*
-Content/Dreamdland1/LevelAsets/*
