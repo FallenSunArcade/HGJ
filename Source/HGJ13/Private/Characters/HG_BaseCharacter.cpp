@@ -19,8 +19,6 @@ AHG_BaseCharacter::AHG_BaseCharacter()
 void AHG_BaseCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-
-	DialogComponent->SpeakingDelegate.AddDynamic(this, &AHG_BaseCharacter::Speaking);
 }
 
 

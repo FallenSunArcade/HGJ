@@ -6,6 +6,8 @@
 #include "GameFramework/GameModeBase.h"
 #include "HG_CarnivalGameMode.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FSpeakingDelegate, float, DialogueIndex);
+
 class AHG_PlayerController;
 class UHG_GameInstance;
 class AHG_BaseCharacter;
@@ -36,6 +38,12 @@ public:
 	void SetShootingBooth(AHG_ShootingBooth* Booth) { ShootingBooth = Booth;}
 
 	AHG_ShootingBooth* GetShootingBooth() const { return ShootingBooth;}
+	
+	UPROPERTY(BlueprintAssignable)
+	FSpeakingDelegate SpeakingDelegate;
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	void Speaking(float Index);
 
 private:
 	UPROPERTY()

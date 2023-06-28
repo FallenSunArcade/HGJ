@@ -7,11 +7,15 @@
 #include "HG_GameInstance.generated.h"
 
 UENUM(BlueprintType)
-enum class ECarnival : uint8 {
+enum class EGameStates : uint8 {
 	ShootingBooth,
+	DreamWorld1,
 	WhackAMole,
+	DreamWorld2,
 	DunkTank,
-	FerrisWheel
+	DreamWorld3,
+	FerrisWheel,
+	DreamWorld4
 };
 
 UCLASS()
@@ -20,10 +24,13 @@ class HGJ13_API UHG_GameInstance : public UGameInstance
 	GENERATED_BODY()
 
 public:
-	ECarnival GetCurrentCarnivalBooth() const {return CurrentBooth;}
-	
-    void SetCarnivalBooth(ECarnival CarnivalState);
+	UFUNCTION(BlueprintCallable)
+	EGameStates GetGameState() const {return CurrentState;}
+
+	UFUNCTION(BlueprintCallable)
+    void SetGameState(EGameStates NewState) {CurrentState = NewState;}
 	
 private:
-	ECarnival CurrentBooth = ECarnival::ShootingBooth;
+	UPROPERTY(EditAnywhere, Category = "Game")
+	EGameStates CurrentState = EGameStates::ShootingBooth;
 };

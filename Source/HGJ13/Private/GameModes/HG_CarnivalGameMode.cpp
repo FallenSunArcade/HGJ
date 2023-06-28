@@ -19,25 +19,35 @@ void AHG_CarnivalGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
+	SpeakingDelegate.AddDynamic(this, &AHG_CarnivalGameMode::Speaking);
+	
 	PlayerControllerRef = Cast<AHG_PlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
 	check(PlayerControllerRef);
 
 	GameInstanceRef = Cast<UHG_GameInstance>(GetGameInstance());
 	check(GameInstanceRef);
 	
-	switch(GameInstanceRef->GetCurrentCarnivalBooth())
+	switch(GameInstanceRef->GetGameState())
 	{
-	case ECarnival::ShootingBooth:
+	case EGameStates::ShootingBooth:
 		SetupShootingBooth();
 		break;
-	case ECarnival::WhackAMole:
+	case EGameStates::DreamWorld1:
+		break;
+	case EGameStates::WhackAMole:
 		SetupWackAMole();
 		break;
-	case ECarnival::DunkTank:
+	case EGameStates::DreamWorld2:
+		break;
+	case EGameStates::DunkTank:
 		SetupDunkBooth();
 		break;
-	case ECarnival::FerrisWheel:
+	case EGameStates::DreamWorld3:
+		break;
+	case EGameStates::FerrisWheel:
 		SetupFerrisWheel();
+		break;
+	case EGameStates::DreamWorld4:
 		break;
 	default:
 		break;

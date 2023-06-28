@@ -27,6 +27,6 @@ private:
 	FString CharacterName = TEXT("");
 	
 	UPROPERTY(EditAnywhere, Category = "Spawner")
-	ECarnival CurrentLevel = ECarnival::ShootingBooth;
+	EGameStates CurrentLevel = EGameStates::ShootingBooth;
 	
 };

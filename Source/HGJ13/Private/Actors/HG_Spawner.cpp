@@ -19,7 +19,7 @@ void AHG_Spawner::BeginPlay()
 	const UHG_GameInstance* GameInstanceRef = Cast<UHG_GameInstance>(GetGameInstance());
 	check(GameInstanceRef);
 
-	if(CurrentLevel == GameInstanceRef->GetCurrentCarnivalBooth())
+	if(CurrentLevel == GameInstanceRef->GetGameState())
 	{
 		if(AHG_CarnivalGameMode* GameMode = Cast<AHG_CarnivalGameMode>(UGameplayStatics::GetGameMode(GetWorld())))
 		{
