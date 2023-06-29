@@ -9,17 +9,20 @@
 #include "Interfaces/HG_Interactable.h"
 #include "GameBooth/HG_ShootingBooth.h"
 #include "Kismet/GameplayStatics.h"
+#include "Actors/HG_WoM.h"
+#include "Components/HG_DialogComponent.h"
 
 
 AHG_CarnivalGameMode::AHG_CarnivalGameMode()
 {
 	PrimaryActorTick.bCanEverTick = false;
+	EntranceDialogComponent = CreateDefaultSubobject<UHG_DialogComponent>(TEXT("Dialog Component"));
 }
 
 void AHG_CarnivalGameMode::BeginPlay()
 {
 	Super::BeginPlay();
-
+	
 	SpeakingDelegate.AddDynamic(this, &AHG_CarnivalGameMode::Speaking);
 	
 	PlayerControllerRef = Cast<AHG_PlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
@@ -59,6 +62,8 @@ void AHG_CarnivalGameMode::SetupShootingBooth()
 {
 	SetPlayerStart(TEXT("ShootingBooth"));
 
+	GetWorldTimerManager().SetTimer(EntranceDelayHandle, this, &AHG_CarnivalGameMode::StartEntranceDialog, 2.f, false);
+	
 	if(ShootingBoothCharacters.Find("Mom"))
 	{
 		if (IHG_Interactable* InteractionComponent =
@@ -75,6 +80,18 @@ void AHG_CarnivalGameMode::EnableShootingBooth()
 	{
 		if (IHG_Interactable* InteractionComponent =
 			Cast<IHG_Interactable>(ShootingBooth->FindComponentByInterface(UHG_Interactable::StaticClass())))
+		{
+			InteractionComponent->SetInteractionVisibility_Implementation(true);
+		}
+	}
+}
+
+void AHG_CarnivalGameMode::EnableWoM()
+{
+	if(WoM)
+	{
+		if (IHG_Interactable* InteractionComponent =
+			Cast<IHG_Interactable>(WoM->FindComponentByInterface(UHG_Interactable::StaticClass())))
 		{
 			InteractionComponent->SetInteractionVisibility_Implementation(true);
 		}
@@ -109,6 +126,13 @@ void AHG_CarnivalGameMode::SetPlayerStart(const FString& StartTag)
 void AHG_CarnivalGameMode::AddShootingBoothCharacter(AHG_BaseCharacter* Spawner, FString Name)
 {
 	ShootingBoothCharacters.Emplace(Name, Spawner);
+}
+
+void AHG_CarnivalGameMode::StartEntranceDialog()
+{
+	EntranceDialogComponent->SetCanInteract(true);
+	EntranceDialogComponent->OnInteraction_Implementation(PlayerControllerRef);
+	EntranceDialogComponent->SetCanInteract(false);
 }
 
 

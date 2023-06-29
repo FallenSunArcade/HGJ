@@ -22,6 +22,7 @@ EBTNodeResult::Type UHG_EnableInteraction::ExecuteTask(UBehaviorTreeComponent& O
 			}
 		case EInteractable::WoM:
 			{
+				GameMode->EnableWoM();
 				break;
 			}
 		case EInteractable::DunkBooth:

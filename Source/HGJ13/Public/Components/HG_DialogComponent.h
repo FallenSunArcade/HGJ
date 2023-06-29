@@ -34,6 +34,8 @@ public:
 	void SetOwningActor(AActor* Actor) {OwningActor = Actor;}
 
 	AActor* GetOwningActor() const { return OwningActor;}
+
+	void SetCanInteract(bool CanInteract) {bCanInteract = CanInteract;}
 	
 protected:
 	virtual void BeginPlay() override;

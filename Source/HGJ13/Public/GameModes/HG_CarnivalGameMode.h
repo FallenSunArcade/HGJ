@@ -8,10 +8,14 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FSpeakingDelegate, float, DialogueIndex);
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FEntranceDelegate);
+
 class AHG_PlayerController;
 class UHG_GameInstance;
 class AHG_BaseCharacter;
 class AHG_ShootingBooth;
+class AHG_WoM;
+class UHG_DialogComponent;
 
 UCLASS()
 class HGJ13_API AHG_CarnivalGameMode : public AGameModeBase
@@ -27,6 +31,8 @@ public:
 
 	void EnableShootingBooth();
 
+	void EnableWoM();
+
 	void SetupWackAMole();
 
 	void SetupDunkBooth();
@@ -39,6 +45,8 @@ public:
 
 	void SetShootingBooth(AHG_ShootingBooth* Booth) { ShootingBooth = Booth;}
 
+	void SetWom(AHG_WoM* W) { WoM = W;}
+
 	AHG_ShootingBooth* GetShootingBooth() const { return ShootingBooth;}
 	
 	UPROPERTY(BlueprintAssignable)
@@ -47,7 +55,12 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void Speaking(float Index);
 
+	UFUNCTION()
+	void StartEntranceDialog();
+
 private:
+	UPROPERTY(EditAnywhere)
+	UHG_DialogComponent* EntranceDialogComponent;
 	
 	UPROPERTY()
 	AHG_PlayerController* PlayerControllerRef;
@@ -69,6 +82,11 @@ private:
 
 	UPROPERTY()
 	AHG_ShootingBooth* ShootingBooth;
+
+	UPROPERTY()
+	AHG_WoM* WoM;
+
+	FTimerHandle EntranceDelayHandle;
 };
 
 
