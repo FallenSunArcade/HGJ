@@ -7,6 +7,7 @@
 #include "GameFramework/Character.h"
 #include "GameInstances/HG_GameInstance.h"
 #include "Interfaces/HG_Interactable.h"
+#include "GameBooth/HG_ShootingBooth.h"
 #include "Kismet/GameplayStatics.h"
 
 
@@ -62,6 +63,18 @@ void AHG_CarnivalGameMode::SetupShootingBooth()
 	{
 		if (IHG_Interactable* InteractionComponent =
 		Cast<IHG_Interactable>(ShootingBoothCharacters["Mom"]->FindComponentByInterface(UHG_Interactable::StaticClass())))
+		{
+			InteractionComponent->SetInteractionVisibility_Implementation(true);
+		}
+	}
+}
+
+void AHG_CarnivalGameMode::EnableShootingBooth()
+{
+	if(ShootingBooth)
+	{
+		if (IHG_Interactable* InteractionComponent =
+			Cast<IHG_Interactable>(ShootingBooth->FindComponentByInterface(UHG_Interactable::StaticClass())))
 		{
 			InteractionComponent->SetInteractionVisibility_Implementation(true);
 		}

@@ -20,38 +20,43 @@ UHG_DialogComponent::UHG_DialogComponent()
 void UHG_DialogComponent::OnInteraction_Implementation(AHG_PlayerController* PlayerController)
 {
 	IHG_Interactable::OnInteraction_Implementation(PlayerController);
-	
-	InteractionWidget->SetVisibility(false);
-	
-	UE_LOG(LogInteraction, Display, TEXT("OnInteraction_Implementation (%s)"), *GetName());
 
-	if(DialogTree)
+	if(bCanInteract)
 	{
-		AIController->RunBehaviorTree(DialogTree);
-	}
+		bCanInteract = false;
+		InteractionWidget->SetVisibility(false);
 	
-	if(PlayerController)
-	{
-		FInputModeUIOnly InputModeUIOnly;
-		PlayerController->SetInputMode(InputModeUIOnly);
-		PlayerController->FlushPressedKeys();
-		PlayerController->SetShowMouseCursor(true);
-		
-		PlayerControllerRef = PlayerController;
-		
-		if(UBlackboardComponent* BlackboardComponent = AIController->GetBlackboardComponent())
+		UE_LOG(LogInteraction, Display, TEXT("OnInteraction_Implementation (%s)"), *GetName());
+
+		if(DialogTree)
 		{
-			BlackboardComponent->SetValueAsObject("Hud", PlayerControllerRef->GetHudOverlay());
-			BlackboardComponent->SetValueAsObject("Owner", this);
+			AIController->RunBehaviorTree(DialogTree);
+		}
+	
+		if(PlayerController)
+		{
+			FInputModeUIOnly InputModeUIOnly;
+			PlayerController->SetInputMode(InputModeUIOnly);
+			PlayerController->FlushPressedKeys();
+			PlayerController->SetShowMouseCursor(true);
+		
+			PlayerControllerRef = PlayerController;
+		
+			if(UBlackboardComponent* BlackboardComponent = AIController->GetBlackboardComponent())
+			{
+				BlackboardComponent->SetValueAsObject("Hud", PlayerControllerRef->GetHudOverlay());
+				BlackboardComponent->SetValueAsObject("Owner", this);
+			}
 		}
 	}
-
 }
 
 void UHG_DialogComponent::SetInteractionVisibility_Implementation(bool Visible)
 {
 
 	InteractionWidget->SetVisibility(Visible);
+
+	bCanInteract = true;
 }
 
 void UHG_DialogComponent::EndInteraction()

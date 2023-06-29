@@ -25,6 +25,8 @@ public:
 
 	void SetupShootingBooth();
 
+	void EnableShootingBooth();
+
 	void SetupWackAMole();
 
 	void SetupDunkBooth();
