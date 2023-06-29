@@ -89,7 +89,7 @@ void AHG_CarnivalGameMode::SetPlayerStart(const FString& StartTag)
 	{
 		ACharacter* Player = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
 
-		Player->SetActorTransform(PlayerStart->GetTransform());
+			Player->SetActorTransform(PlayerStart->GetTransform());
 	}
 }
 
