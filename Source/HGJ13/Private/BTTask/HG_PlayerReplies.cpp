@@ -3,14 +3,17 @@
 
 #include "BTTask/HG_PlayerReplies.h"
 #include "BehaviorTree/BlackboardComponent.h"
+#include "BrainComponent.h"
 #include "UI/HG_HudOverlay.h"
 #include "UI/HG_Dialog.h"
+#include "GameModes/HG_CarnivalGameMode.h"
+#include "Kismet/GameplayStatics.h"
 
 
 EBTNodeResult::Type UHG_PlayerReplies::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
 	BTComponent = &OwnerComp;
-	const UBlackboardComponent* BlackboardComponent = OwnerComp.GetBlackboardComponent();
+	UBlackboardComponent* BlackboardComponent = OwnerComp.GetBlackboardComponent();
 	
 	check(BlackboardComponent);
 	
@@ -40,8 +43,24 @@ EBTNodeResult::Type UHG_PlayerReplies::ExecuteTask(UBehaviorTreeComponent& Owner
 	return EBTNodeResult::InProgress;
 }
 
-void UHG_PlayerReplies::ReplyWasSelected(int32 Index, bool IsHostile)
+void UHG_PlayerReplies::ReplyWasSelected(float Duration, bool IsHostile, float Index)
 {
+	UBlackboardComponent* BlackboardComponent = BTComponent->GetBlackboardComponent();
+
+	if(const AHG_CarnivalGameMode* GameMode = Cast<AHG_CarnivalGameMode>(UGameplayStatics::GetGameMode(GetWorld())))
+	{
+		GameMode->SpeakingDelegate.Broadcast(Index);
+	}
+	
+	if(IsHostile)
+	{
+		BlackboardComponent->SetValueAsString("ReplyType", "Hostile");
+	}
+	else
+	{
+		BlackboardComponent->SetValueAsString("ReplyType", "Friendly");
+	}
+	
 	for(int i = 0; i < RepliesObjects.Num(); ++i)
 	{
 		RepliesObjects[i]->ReplySelectedDelegate.RemoveAll(this);
@@ -51,5 +70,11 @@ void UHG_PlayerReplies::ReplyWasSelected(int32 Index, bool IsHostile)
 	UHG_Dialog* DialogWidget = HudOverlay->GetDialogWidget();
 	check(DialogWidget);
 	DialogWidget->SetActiveWidgetVisibility(false);
+
+	GetWorld()->GetTimerManager().SetTimer(ReplyHandle, this, &UHG_PlayerReplies::ReplyDone, Duration, false);
+}
+
+void UHG_PlayerReplies::ReplyDone()
+{
 	FinishLatentTask(*BTComponent, EBTNodeResult::Succeeded);
 }

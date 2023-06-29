@@ -7,6 +7,7 @@
 #include "UI/HG_DialogObject.h"
 #include "HG_PlayerReplies.generated.h"
 
+
 class UHG_HudOverlay;
 
 UCLASS()
@@ -18,12 +19,15 @@ public:
 	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
 
 	UFUNCTION()
-	void ReplyWasSelected(int32 Index, bool IsHostile);
+	void ReplyWasSelected(float Duration, bool IsHostile, float Index);
+
+	UFUNCTION()
+	void ReplyDone();
 	
 private:
 	UPROPERTY(EditAnywhere, Category = "Replies")
 	TArray<FPlayerReply> Replies;
-
+ 
 	UPROPERTY()
 	UBehaviorTreeComponent* BTComponent = nullptr;
 
@@ -32,4 +36,6 @@ private:
 
 	UPROPERTY()
 	TArray<UHG_DialogObject*> RepliesObjects;
+
+	FTimerHandle ReplyHandle;
 };

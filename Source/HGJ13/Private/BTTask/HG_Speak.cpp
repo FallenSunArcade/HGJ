@@ -3,8 +3,10 @@
 
 #include "BTTask/HG_Speak.h"
 #include "BehaviorTree/BlackboardComponent.h"
+#include "Kismet/GameplayStatics.h"
 #include "UI/HG_HudOverlay.h"
 #include "UI/HG_Dialog.h"
+#include "GameModes/HG_CarnivalGameMode.h"
 
 
 EBTNodeResult::Type UHG_Speak::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
@@ -15,6 +17,11 @@ EBTNodeResult::Type UHG_Speak::ExecuteTask(UBehaviorTreeComponent& OwnerComp, ui
 	check(BlackboardComponent);
 	
     HudOverlay = Cast<UHG_HudOverlay>(BlackboardComponent->GetValueAsObject("Hud"));
+
+	if(const AHG_CarnivalGameMode* GameMode = Cast<AHG_CarnivalGameMode>(UGameplayStatics::GetGameMode(GetWorld())))
+	{
+		GameMode->SpeakingDelegate.Broadcast(Index);
+	}
 	
 	if(HudOverlay)
 	{

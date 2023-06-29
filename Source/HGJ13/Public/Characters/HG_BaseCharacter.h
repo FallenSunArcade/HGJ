@@ -17,9 +17,6 @@ public:
 	AHG_BaseCharacter();
 	UHG_DialogComponent* GetDialogComponent() const {return DialogComponent;}
 
-	UFUNCTION(BlueprintImplementableEvent)
-	void Speaking(int32 DialogueIndex, bool IsHostile);
-
 protected:
 	virtual void BeginPlay() override;
 

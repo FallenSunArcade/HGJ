@@ -22,6 +22,9 @@ public:
 private:
 	UPROPERTY(EditAnywhere, Category = "Dialog")
 	FText Dialog;
+	
+	UPROPERTY(EditAnywhere, Category = "Dialog")
+	float Index;
 
 	UPROPERTY()
 	UBehaviorTreeComponent* BTComponent = nullptr;

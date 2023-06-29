@@ -46,6 +46,7 @@ public:
 	void Speaking(float Index);
 
 private:
+	
 	UPROPERTY()
 	AHG_PlayerController* PlayerControllerRef;
 
