@@ -62,7 +62,7 @@ void AHG_CarnivalGameMode::SetupShootingBooth()
 {
 	SetPlayerStart(TEXT("ShootingBooth"));
 
-	GetWorldTimerManager().SetTimer(EntranceDelayHandle, this, &AHG_CarnivalGameMode::StartEntranceDialog, 2.f, false);
+	GetWorldTimerManager().SetTimer(EntranceDelayHandle, this, &AHG_CarnivalGameMode::StartEntranceDialog, 1.f, false);
 	
 	if(ShootingBoothCharacters.Find("Mom"))
 	{
