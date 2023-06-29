@@ -31,8 +31,6 @@ public:
 	
 	UWidgetComponent* GetInteractionWidget() const {return InteractionWidget;}
 
-	bool CanSpeak() const {return bCanSpeak;}
-
 	void SetOwningActor(AActor* Actor) {OwningActor = Actor;}
 
 	AActor* GetOwningActor() const { return OwningActor;}
@@ -59,6 +57,6 @@ private:
 	UPROPERTY()
 	AActor* OwningActor;
 	
-	bool bCanSpeak = false;
+	bool bCanInteract = false;
 };
 
