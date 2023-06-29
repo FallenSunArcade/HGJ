@@ -12,8 +12,6 @@ AHG_ShootingBooth::AHG_ShootingBooth()
 {
 	PrimaryActorTick.bCanEverTick = false;
 
-	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
-
 	Tent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Tent"));
 	Tent->SetupAttachment(RootComponent);
 

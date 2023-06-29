@@ -18,7 +18,6 @@ FReply UHG_HudOverlay::NativeOnMouseButtonDown(const FGeometry& InGeometry, cons
 	{
 		OverlayClickedDelegate.Broadcast();
 	}
-
 	
 	return Reply;
 }
