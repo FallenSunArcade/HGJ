@@ -41,7 +41,6 @@ void AHG_CarnivalGameMode::BeginPlay()
 		break;
 	case EGameStates::WhackAMole:
 		SetupWackAMole();
-		EnableWackAMole();
 		break;
 	case EGameStates::DreamWorld2:
 		break;
@@ -88,12 +87,24 @@ void AHG_CarnivalGameMode::EnableShootingBooth()
 	}
 }
 
-void AHG_CarnivalGameMode::EnableWoM()
+void AHG_CarnivalGameMode::EnableWoMShootingBooth()
 {
-	if(WoM)
+	if(WoMShootingBooth)
 	{
 		if (IHG_Interactable* InteractionComponent =
-			Cast<IHG_Interactable>(WoM->FindComponentByInterface(UHG_Interactable::StaticClass())))
+			Cast<IHG_Interactable>(WoMShootingBooth->FindComponentByInterface(UHG_Interactable::StaticClass())))
+		{
+			InteractionComponent->SetInteractionVisibility_Implementation(true);
+		}
+	}
+}
+
+void AHG_CarnivalGameMode::EnableWomWhackAMole()
+{
+	if(WoMWhackAMole)
+	{
+		if (IHG_Interactable* InteractionComponent =
+			Cast<IHG_Interactable>(WoMWhackAMole->FindComponentByInterface(UHG_Interactable::StaticClass())))
 		{
 			InteractionComponent->SetInteractionVisibility_Implementation(true);
 		}

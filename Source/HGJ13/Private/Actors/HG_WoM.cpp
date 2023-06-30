@@ -24,7 +24,14 @@ void AHG_WoM::BeginPlay()
 	AHG_CarnivalGameMode* GameMode = Cast<AHG_CarnivalGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
 	check(GameMode);
 
-	GameMode->SetWom(this);
+	if(Booth == EWom::ShootingBooth)
+	{
+		GameMode->SetWomShootingBooth(this);
+	}
+	else
+	{
+		GameMode->SetWomWhackAMole(this);
+	}
 }
 
 
