@@ -17,7 +17,8 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FRoundStartDelegate, int32, RoundNum
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FRoundOverDelegate, bool, Won);
 
 class UHG_DialogComponent;
-class UWidgetComponent;
+class UHG_GameBoard;
+class UHG_ScoreTime;
 
 UCLASS()
 class HGJ13_API AHG_GameBoothBase : public AActor
@@ -26,11 +27,6 @@ class HGJ13_API AHG_GameBoothBase : public AActor
 
 public:
 	AHG_GameBoothBase();
-
-	void ChangeScore(int32 NewScore);
-
-	UFUNCTION()
-	void UpdateTime();
 	
 	virtual void BeginPlay() override;
 
@@ -49,11 +45,14 @@ protected:
 	UHG_DialogComponent* DialogComponent;
 	
 	UPROPERTY(EditAnywhere, Category = "Interaction")
-	UWidgetComponent* ScoreBoard;
+	UHG_GameBoard* ScoreBoard;
 
 	UPROPERTY(EditAnywhere, Category = "Game Booth")
 	bool bHasTickets = false;
 	
 	UPROPERTY(EditAnywhere, Category = "Game Booth")
 	ERounds CurrentRound = ERounds::Round1;
+
+	UPROPERTY(EditAnywhere, Category = "Game Booth")
+	TSubclassOf<UHG_ScoreTime> ScoreTimeClass;
 };

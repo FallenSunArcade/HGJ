@@ -58,4 +58,6 @@ private:
 	int32 RoundTime = 0;
 
 	int32 NumTargets = 0;
+
+	int32 CurrentScore = 0;
 };

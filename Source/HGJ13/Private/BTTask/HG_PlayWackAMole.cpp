@@ -19,7 +19,7 @@ EBTNodeResult::Type UHG_PlayWackAMole::ExecuteTask(UBehaviorTreeComponent& Owner
 		WhackAMole->RoundStartDelegate.Broadcast(0);
 
 		GetWorld()->GetTimerManager().SetTimer(GameTimerHandle, this, &UHG_PlayWackAMole::GameOver, 30.f);
-	}
+	}                 
 
 	return EBTNodeResult::InProgress;
 }

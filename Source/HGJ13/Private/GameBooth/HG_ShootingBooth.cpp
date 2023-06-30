@@ -2,6 +2,7 @@
 
 
 #include "GameBooth/HG_ShootingBooth.h"
+#include "Components/HG_GameBoard.h"
 #include "Components/SplineComponent.h"
 #include "GameBooth/HG_DuckTarget.h"
 #include "GameModes/HG_CarnivalGameMode.h"
@@ -27,7 +28,10 @@ AHG_ShootingBooth::AHG_ShootingBooth()
 
 void AHG_ShootingBooth::StartRound()
 {
-	RoundTime = 10;
+	ScoreBoard->SetScore(CurrentScore);
+	ScoreBoard->SetTime(15);
+	
+	RoundTime = 15;
 	NumTargets = 10;
 	
 	switch (CurrentRound)
@@ -35,7 +39,7 @@ void AHG_ShootingBooth::StartRound()
 	case ERounds::Round1:
 		{
 			CurrentRound = ERounds::Round2;
-			GetWorldTimerManager().SetTimer(RoundTimerHandle, this, &AHG_ShootingBooth::RoundTick, 1.f, true, 0.f);
+			GetWorldTimerManager().SetTimer(RoundTimerHandle, this, &AHG_ShootingBooth::RoundTick, 1.f, true, 1.f);
 			RoundStartDelegate.Broadcast(1);
 			SetupTargets(9.f, false);
 			break;
@@ -43,16 +47,16 @@ void AHG_ShootingBooth::StartRound()
 	case ERounds::Round2:
 		{
 			CurrentRound = ERounds::Round3;
-			GetWorldTimerManager().SetTimer(RoundTimerHandle, this, &AHG_ShootingBooth::RoundTick, 1.f, true, 0.f);
+			GetWorldTimerManager().SetTimer(RoundTimerHandle, this, &AHG_ShootingBooth::RoundTick, 1.f, true, 1.f);
 			RoundStartDelegate.Broadcast(2);
 			SetupTargets(6.f, false);
 			break;
 		}
 	case ERounds::Round3:
 		{
-			GetWorldTimerManager().SetTimer(RoundTimerHandle, this, &AHG_ShootingBooth::RoundTick, 1.f, true, 0.f);
+			GetWorldTimerManager().SetTimer(RoundTimerHandle, this, &AHG_ShootingBooth::RoundTick, 1.f, true, 1.f);
 			RoundStartDelegate.Broadcast(3);
-			SetupTargets(6.f, true);
+			SetupTargets(5.f, true);
 			break;
 		}
 	default:
@@ -64,6 +68,8 @@ void AHG_ShootingBooth::StartRound()
 void AHG_ShootingBooth::RoundTick()
 {
 	--RoundTime;
+	
+	ScoreBoard->SetTime(RoundTime);
 
 	if(RoundTime <= 0)
 	{
@@ -84,7 +90,8 @@ void AHG_ShootingBooth::RoundTick()
 void AHG_ShootingBooth::RemoveDuck()
 {
 	--NumTargets;
-
+	++CurrentScore;
+	ScoreBoard->SetScore(CurrentScore);
 	if(NumTargets <= 0)
 	{
 		Targets.Empty();
@@ -94,13 +101,26 @@ void AHG_ShootingBooth::RemoveDuck()
 
 void AHG_ShootingBooth::SetupTargets(float LoopTime, bool AddHeads)
 {
-	for(int i = 0; i < NumTargets; ++i)
+	for (int i = 0; i < NumTargets; ++i)
 	{
-		AHG_DuckTarget* Duck = GetWorld()->SpawnActor<AHG_DuckTarget>(DuckTargetClass,
-	SplineComponent->GetComponentTransform());
-		Duck->MoveDuckOnSpline(SplineComponent, (.1f + i*.1f), LoopTime);
-		Duck->DuckDestroyedDelegate.AddDynamic(this, &AHG_ShootingBooth::RemoveDuck);
-		Targets.Emplace(Duck);
+		const bool Head = (i % 2 == 0);
+
+		if (Head && AddHeads)
+		{
+			AHG_DuckTarget* Duck = GetWorld()->SpawnActor<AHG_DuckTarget>(HeadTargetClass,
+			                                                              SplineComponent->GetComponentTransform());
+			Duck->MoveDuckOnSpline(SplineComponent, (.1f + i * .1f), LoopTime);
+			Duck->DuckDestroyedDelegate.AddDynamic(this, &AHG_ShootingBooth::RemoveDuck);
+			Targets.Emplace(Duck);
+		}
+		else
+		{
+			AHG_DuckTarget* Duck = GetWorld()->SpawnActor<AHG_DuckTarget>(DuckTargetClass,
+			                                                              SplineComponent->GetComponentTransform());
+			Duck->MoveDuckOnSpline(SplineComponent, (.1f + i * .1f), LoopTime);
+			Duck->DuckDestroyedDelegate.AddDynamic(this, &AHG_ShootingBooth::RemoveDuck);
+			Targets.Emplace(Duck);
+		}
 	}
 }
 
@@ -110,7 +130,8 @@ void AHG_ShootingBooth::BeginPlay()
 
 	AHG_CarnivalGameMode* GameMode = Cast<AHG_CarnivalGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
 	check(GameMode);
-
 	GameMode->SetShootingBooth(this);
+
+	ScoreBoard->SetScore(17);
 }
 

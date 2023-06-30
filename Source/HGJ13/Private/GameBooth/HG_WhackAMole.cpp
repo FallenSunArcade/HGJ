@@ -17,6 +17,5 @@ void AHG_WhackAMole::BeginPlay()
 
 	AHG_CarnivalGameMode* GameMode = Cast<AHG_CarnivalGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
 	check(GameMode);
-
 	GameMode->SetWhackAMole(this);
 }
