@@ -6,6 +6,11 @@
 #include "GameFramework/Actor.h"
 #include "HG_WoM.generated.h"
 
+UENUM(BlueprintType)
+enum class EWom : uint8 {
+	ShootingBooth,
+	WhackAMole
+};
 
 class UHG_DialogComponent;
 
@@ -23,4 +28,7 @@ protected:
 private:
 	UPROPERTY(EditAnywhere)
 	UHG_DialogComponent* DialogComponent;
+
+	UPROPERTY(EditAnywhere)
+	EWom Booth = EWom::ShootingBooth;
 };

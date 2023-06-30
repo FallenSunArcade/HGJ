@@ -32,7 +32,9 @@ public:
 
 	void EnableShootingBooth();
 
-	void EnableWoM();
+	void EnableWoMShootingBooth();
+
+	void EnableWomWhackAMole();
 
 	void EnableWackAMole();
 
@@ -50,7 +52,9 @@ public:
 
 	AHG_ShootingBooth* GetShootingBooth() const { return ShootingBooth;}
 
-	void SetWom(AHG_WoM* W) { WoM = W;}
+	void SetWomShootingBooth(AHG_WoM* W) { WoMShootingBooth = W;}
+
+	void SetWomWhackAMole(AHG_WoM* W) { WoMWhackAMole = W;}
 
 	void SetWhackAMole(AHG_WhackAMole* MoleGame) { WhackAMole = MoleGame;}
 
@@ -94,7 +98,10 @@ private:
 	AHG_WhackAMole* WhackAMole;
 
 	UPROPERTY()
-	AHG_WoM* WoM;
+	AHG_WoM* WoMShootingBooth;
+
+	UPROPERTY()
+	AHG_WoM* WoMWhackAMole;
 
 	FTimerHandle EntranceDelayHandle;
 };

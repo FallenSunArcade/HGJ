@@ -10,7 +10,8 @@ UENUM(BlueprintType)
 enum class EInteractable : uint8 {
 	ShootingBooth,
 	WhackAMole,
-	WoM,
+	WoMShootingBooth,
+	WoMWackAMole,
 	DunkBooth,
 	FerrisWheel
 };
