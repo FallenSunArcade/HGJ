@@ -11,6 +11,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Actors/HG_WoM.h"
 #include "Components/HG_DialogComponent.h"
+#include "GameBooth/HG_WhackAMole.h"
 
 
 AHG_CarnivalGameMode::AHG_CarnivalGameMode()
@@ -36,10 +37,11 @@ void AHG_CarnivalGameMode::BeginPlay()
 	case EGameStates::ShootingBooth:
 		SetupShootingBooth();
 		break;
-	case EGameStates::DreamWorld1:
+	case EGameStates::DreamWorld1: 
 		break;
 	case EGameStates::WhackAMole:
 		SetupWackAMole();
+		EnableWackAMole();
 		break;
 	case EGameStates::DreamWorld2:
 		break;
@@ -92,6 +94,18 @@ void AHG_CarnivalGameMode::EnableWoM()
 	{
 		if (IHG_Interactable* InteractionComponent =
 			Cast<IHG_Interactable>(WoM->FindComponentByInterface(UHG_Interactable::StaticClass())))
+		{
+			InteractionComponent->SetInteractionVisibility_Implementation(true);
+		}
+	}
+}
+
+void AHG_CarnivalGameMode::EnableWackAMole()
+{
+	if(WhackAMole)
+	{
+		if (IHG_Interactable* InteractionComponent =
+			Cast<IHG_Interactable>(WhackAMole->FindComponentByInterface(UHG_Interactable::StaticClass())))
 		{
 			InteractionComponent->SetInteractionVisibility_Implementation(true);
 		}

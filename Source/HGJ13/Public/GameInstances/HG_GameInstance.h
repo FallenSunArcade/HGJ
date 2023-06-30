@@ -18,6 +18,20 @@ enum class EGameStates : uint8 {
 	DreamWorld4
 };
 
+UENUM(BlueprintType)
+enum class EDialogSections : uint8 {
+	Section1,
+	Section2,
+	Section3,
+	Section4,
+	Section5,
+	Section6,
+	Section7,
+	Section8,
+	Section9
+};
+
+
 UCLASS()
 class HGJ13_API UHG_GameInstance : public UGameInstance
 {

@@ -16,6 +16,7 @@ class AHG_BaseCharacter;
 class AHG_ShootingBooth;
 class AHG_WoM;
 class UHG_DialogComponent;
+class AHG_WhackAMole;
 
 UCLASS()
 class HGJ13_API AHG_CarnivalGameMode : public AGameModeBase
@@ -33,6 +34,8 @@ public:
 
 	void EnableWoM();
 
+	void EnableWackAMole();
+
 	void SetupWackAMole();
 
 	void SetupDunkBooth();
@@ -45,9 +48,13 @@ public:
 
 	void SetShootingBooth(AHG_ShootingBooth* Booth) { ShootingBooth = Booth;}
 
+	AHG_ShootingBooth* GetShootingBooth() const { return ShootingBooth;}
+
 	void SetWom(AHG_WoM* W) { WoM = W;}
 
-	AHG_ShootingBooth* GetShootingBooth() const { return ShootingBooth;}
+	void SetWhackAMole(AHG_WhackAMole* MoleGame) { WhackAMole = MoleGame;}
+
+	AHG_WhackAMole* GetWhackAMole() const { return WhackAMole;}
 	
 	UPROPERTY(BlueprintAssignable)
 	FSpeakingDelegate SpeakingDelegate;
@@ -82,6 +89,9 @@ private:
 
 	UPROPERTY()
 	AHG_ShootingBooth* ShootingBooth;
+
+	UPROPERTY()
+	AHG_WhackAMole* WhackAMole;
 
 	UPROPERTY()
 	AHG_WoM* WoM;
