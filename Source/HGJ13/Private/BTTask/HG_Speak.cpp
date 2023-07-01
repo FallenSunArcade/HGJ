@@ -44,5 +44,11 @@ void UHG_Speak::HudWasClicked()
 	HudOverlay->OverlayClickedDelegate.RemoveAll(this);
 	UHG_Dialog* DialogWidget = HudOverlay->GetDialogWidget();
 	DialogWidget->SetActiveWidgetVisibility(false);
+	
+	if(const AHG_CarnivalGameMode* GameMode = Cast<AHG_CarnivalGameMode>(UGameplayStatics::GetGameMode(GetWorld())))
+	{
+		GameMode->SpeakingDelegate.Broadcast(0);
+	}
+	
 	FinishLatentTask(*BTComponent, EBTNodeResult::Succeeded);
 }

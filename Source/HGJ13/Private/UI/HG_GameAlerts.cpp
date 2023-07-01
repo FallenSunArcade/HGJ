@@ -2,3 +2,25 @@
 
 
 #include "UI/HG_GameAlerts.h"
+
+#include "Components/TextBlock.h"
+
+void UHG_GameAlerts::DisplayAlert(const FText& Alert)
+{
+	AlertDelegate.Broadcast();
+	AlertMessage->SetText(Alert);
+	SetVisibility(ESlateVisibility::Visible);
+	GetWorld()->GetTimerManager().SetTimer(AlertTimerHandle, this, &UHG_GameAlerts::RemoveAlert, 3.f);
+}
+
+void UHG_GameAlerts::NativeOnInitialized()
+{
+	Super::NativeOnInitialized();
+	SetVisibility(ESlateVisibility::Hidden);
+	AlertDelegate.AddDynamic(this, &UHG_GameAlerts::GameAlert);
+}
+
+void UHG_GameAlerts::RemoveAlert()
+{
+	SetVisibility(ESlateVisibility::Hidden);
+}

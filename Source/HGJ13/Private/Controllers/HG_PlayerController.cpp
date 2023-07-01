@@ -7,6 +7,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "ToolBox/HG_LogCategories.h"
 #include "UI/HG_HudOverlay.h"
+#include "UI/HG_GameAlerts.h"
 
 
 
@@ -75,5 +76,12 @@ void AHG_PlayerController::Interact()
 void AHG_PlayerController::MakeTransition()
 {
 	HudOverlay->StartGameTransition(1.f);
+}
+
+void AHG_PlayerController::CreateGameAlert(const FText& Alert)
+{
+	UHG_GameAlerts* GameAlertsWidget = HudOverlay->GetGameAlertsWidget();
+	check(GameAlertsWidget);
+	GameAlertsWidget->DisplayAlert(Alert);
 }
 

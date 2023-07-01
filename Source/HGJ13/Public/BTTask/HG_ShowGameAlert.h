@@ -14,4 +14,8 @@ class HGJ13_API UHG_ShowGameAlert : public UBTTask_BlackboardBase
 	
 public:
 	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
+
+private:
+	UPROPERTY(EditAnywhere)
+	FText AlertMessage;
 };

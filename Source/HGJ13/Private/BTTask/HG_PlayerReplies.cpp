@@ -81,5 +81,11 @@ void UHG_PlayerReplies::ReplyDone()
 	UHG_Dialog* DialogWidget = HudOverlay->GetDialogWidget();
 	check(DialogWidget);
 	DialogWidget->SetActiveWidgetVisibility(false);
+
+	if(const AHG_CarnivalGameMode* GameMode = Cast<AHG_CarnivalGameMode>(UGameplayStatics::GetGameMode(GetWorld())))
+	{
+		GameMode->SpeakingDelegate.Broadcast(0);
+	}
+	
 	FinishLatentTask(*BTComponent, EBTNodeResult::Succeeded);
 }

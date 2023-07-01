@@ -20,7 +20,9 @@ public:
 	UHG_HudOverlay* GetHudOverlay() const {return HudOverlay;}
 
 	void MakeTransition();
- 
+
+	void CreateGameAlert(const FText& Alert);
+	
 protected:
 	virtual void BeginPlay() override;
 
