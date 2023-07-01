@@ -32,6 +32,8 @@ public:
 
 	void EnableShootingBooth();
 
+	void EnableShootingBoothCharacter(const FString& Name);
+
 	void EnableWoMShootingBooth();
 
 	void EnableWomWhackAMole();

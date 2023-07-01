@@ -87,6 +87,10 @@ void AHG_CarnivalGameMode::EnableShootingBooth()
 	}
 }
 
+void AHG_CarnivalGameMode::EnableShootingBoothCharacter(const FString& Name)
+{
+}
+
 void AHG_CarnivalGameMode::EnableWoMShootingBooth()
 {
 	if(WoMShootingBooth)
