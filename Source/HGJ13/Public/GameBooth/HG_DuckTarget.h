@@ -7,7 +7,7 @@
 #include "GameFramework/Actor.h"
 #include "HG_DuckTarget.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FDuckDestroyedDelegate);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FDuckDestroyedDelegate, bool, TargetIsHead);
 
 class UCapsuleComponent;
 class UStaticMeshComponent;
@@ -28,6 +28,10 @@ public:
 	void ProcessMovementTimeline(float Value);
 
 	FDuckDestroyedDelegate DuckDestroyedDelegate;
+
+	bool IsHead() const {return bIsHead;}
+
+	void SetIsHead(bool Head) {bIsHead = Head;}
 	
 protected:
 	virtual void BeginPlay() override;
@@ -50,4 +54,6 @@ private:
 	USplineComponent* SplineRef = nullptr;
 	
 	FTimeline Timeline;
+
+	bool bIsHead = false;
 };

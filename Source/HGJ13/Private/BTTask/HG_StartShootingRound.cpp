@@ -27,7 +27,7 @@ EBTNodeResult::Type UHG_StartShootingRound::ExecuteTask(UBehaviorTreeComponent& 
 	return EBTNodeResult::InProgress;
 }
 
-void UHG_StartShootingRound::RoundOver(bool Won)
+void UHG_StartShootingRound::RoundOver()
 {
 	if(const AHG_CarnivalGameMode* GameMode = Cast<AHG_CarnivalGameMode>(UGameplayStatics::GetGameMode(GetWorld())))
 	{

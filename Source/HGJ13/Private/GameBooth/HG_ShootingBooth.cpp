@@ -29,16 +29,15 @@ AHG_ShootingBooth::AHG_ShootingBooth()
 void AHG_ShootingBooth::StartRound()
 {
 	ScoreBoard->SetScore(CurrentScore);
-	ScoreBoard->SetTime(15);
+	ScoreBoard->SetTime(10);
 	
-	RoundTime = 15;
+	RoundTime = 10;
 	NumTargets = 10;
 	
 	switch (CurrentRound)
 	{
 	case ERounds::Round1:
 		{
-			CurrentRound = ERounds::Round2;
 			GetWorldTimerManager().SetTimer(RoundTimerHandle, this, &AHG_ShootingBooth::RoundTick, 1.f, true, 1.f);
 			RoundStartDelegate.Broadcast(1);
 			SetupTargets(9.f, false);
@@ -46,7 +45,6 @@ void AHG_ShootingBooth::StartRound()
 		}
 	case ERounds::Round2:
 		{
-			CurrentRound = ERounds::Round3;
 			GetWorldTimerManager().SetTimer(RoundTimerHandle, this, &AHG_ShootingBooth::RoundTick, 1.f, true, 1.f);
 			RoundStartDelegate.Broadcast(2);
 			SetupTargets(6.f, false);
@@ -56,7 +54,6 @@ void AHG_ShootingBooth::StartRound()
 		{
 			GetWorldTimerManager().SetTimer(RoundTimerHandle, this, &AHG_ShootingBooth::RoundTick, 1.f, true, 1.f);
 			RoundStartDelegate.Broadcast(3);
-			SetupTargets(5.f, true);
 			break;
 		}
 	default:
@@ -73,6 +70,7 @@ void AHG_ShootingBooth::RoundTick()
 
 	if(RoundTime <= 0)
 	{
+
 		for(int i = 0; i < Targets.Num(); ++i)
 		{
 			if(Targets[i])
@@ -83,20 +81,52 @@ void AHG_ShootingBooth::RoundTick()
 		}
 		Targets.Empty();
 		GetWorldTimerManager().ClearTimer(RoundTimerHandle);
-		RoundOverDelegate.Broadcast(false);
+
+		if(CurrentRound == ERounds::Round3)
+		{
+			if(CurrentScore > 17)
+			{
+				GameOverDelegate.Broadcast(true);
+			}
+			else
+			{
+				GameOverDelegate.Broadcast(false);
+			}
+		}
+		if(CurrentRound == ERounds::Round1)
+		{
+			CurrentRound = ERounds::Round2;
+		}
+		else
+		{
+			ScoreBoard->SetTime(10);
+			NumTargets = 10;
+			CurrentRound = ERounds::Round3;
+		}
+		RoundOverDelegate.Broadcast();
 	}
 }
 
-void AHG_ShootingBooth::RemoveDuck()
+void AHG_ShootingBooth::RemoveDuck(bool IsHead)
 {
+	if(IsHead)
+	{
+		GameOverDelegate.Broadcast(false);
+		RoundOverDelegate.Broadcast();
+		for(int i = 0; i < Targets.Num(); ++i)
+		{
+			if(Targets[i])
+			{
+				Targets[i]->DuckDestroyedDelegate.RemoveAll(this);
+				Targets[i]->Destroy();
+			}
+		}
+		Targets.Empty();
+		GetWorldTimerManager().ClearTimer(RoundTimerHandle);
+	}
 	--NumTargets;
 	++CurrentScore;
 	ScoreBoard->SetScore(CurrentScore);
-	if(NumTargets <= 0)
-	{
-		Targets.Empty();
-		RoundOverDelegate.Broadcast(true);
-	}
 }
 
 void AHG_ShootingBooth::SetupTargets(float LoopTime, bool AddHeads)
@@ -111,6 +141,7 @@ void AHG_ShootingBooth::SetupTargets(float LoopTime, bool AddHeads)
 			                                                              SplineComponent->GetComponentTransform());
 			Duck->MoveDuckOnSpline(SplineComponent, (.1f + i * .1f), LoopTime);
 			Duck->DuckDestroyedDelegate.AddDynamic(this, &AHG_ShootingBooth::RemoveDuck);
+			Duck->SetIsHead(true);
 			Targets.Emplace(Duck);
 		}
 		else

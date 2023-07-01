@@ -19,7 +19,7 @@ public:
 	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
 
 	UFUNCTION()
-	void ReplyWasSelected(float Duration, bool IsHostile, float Index);
+	void ReplyWasSelected(FText ReplyText, bool IsHostile, float Index);
 
 	UFUNCTION()
 	void ReplyDone();
@@ -36,6 +36,4 @@ private:
 
 	UPROPERTY()
 	TArray<UHG_DialogObject*> RepliesObjects;
-
-	FTimerHandle ReplyHandle;
 };

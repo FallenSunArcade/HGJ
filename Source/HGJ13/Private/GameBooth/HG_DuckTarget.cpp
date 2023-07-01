@@ -71,6 +71,6 @@ void AHG_DuckTarget::Destroyed()
 {
 	Super::Destroyed();
 
-	DuckDestroyedDelegate.Broadcast();
+	DuckDestroyedDelegate.Broadcast(bIsHead);
 }
 

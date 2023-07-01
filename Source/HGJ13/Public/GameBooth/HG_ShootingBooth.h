@@ -24,7 +24,7 @@ public:
 	void RoundTick();
 
 	UFUNCTION()
-	void RemoveDuck();
+	void RemoveDuck(bool IsHead);
 
 	void SetupTargets(float LoopTime, bool AddHeads);
 

@@ -32,7 +32,7 @@ void UHG_PlayWackAMole::GameOver()
 
 		check(WhackAMole);
 
-		WhackAMole->RoundOverDelegate.Broadcast(true);
+		WhackAMole->RoundOverDelegate.Broadcast();
 		
 	}
 

@@ -25,7 +25,7 @@ void UHG_ListEntry::NativeOnListItemObjectSet(UObject* ListItemObject)
 void UHG_ListEntry::OnButtonClicked()
 {
 	check(DialogObject);
-	DialogObject->ReplySelectedDelegate.Broadcast(DialogObject->PlayerReply.ReplyDuration,
+	DialogObject->ReplySelectedDelegate.Broadcast(DialogObject->PlayerReply.Reply,
 		DialogObject->PlayerReply.IsHostile, DialogObject->PlayerReply.Index);
 }
 

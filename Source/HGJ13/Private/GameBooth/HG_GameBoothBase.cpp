@@ -28,6 +28,6 @@ void AHG_GameBoothBase::BeginPlay()
 	Super::BeginPlay();
 	
 	RoundStartDelegate.AddDynamic(this, &AHG_GameBoothBase::RoundStart);
-	RoundOverDelegate.AddDynamic(this, &AHG_GameBoothBase::RoundOver);
+	GameOverDelegate.AddDynamic(this, &AHG_GameBoothBase::GameOver);
 }
 

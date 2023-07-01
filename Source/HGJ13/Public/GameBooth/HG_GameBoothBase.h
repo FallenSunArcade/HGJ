@@ -14,7 +14,8 @@ enum class ERounds : uint8 {
 };
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FRoundStartDelegate, int32, RoundNumber);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FRoundOverDelegate, bool, Won);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FRoundOverDelegate);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FGameOverDelegate, bool, Won);
 
 class UHG_DialogComponent;
 class UHG_GameBoard;
@@ -33,12 +34,14 @@ public:
 	FRoundStartDelegate RoundStartDelegate;
 	
 	FRoundOverDelegate RoundOverDelegate;
+	
+	FGameOverDelegate GameOverDelegate;
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void RoundStart(int32 RoundNumber);
 
 	UFUNCTION(BlueprintImplementableEvent)
-	void RoundOver(bool Won);
+	void GameOver(bool Won);
 	
 protected:
 	UPROPERTY(EditAnywhere)

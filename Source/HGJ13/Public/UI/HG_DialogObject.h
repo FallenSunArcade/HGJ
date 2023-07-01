@@ -7,7 +7,7 @@
 #include "HG_DialogObject.generated.h"
 
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FReplySelectedDelegate, float, ReplyDuration, bool, IsHostile, float, Index);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FReplySelectedDelegate, FText, ReplyText, bool, IsHostile, float, Index);
 
 USTRUCT(BlueprintType)
 struct FPlayerReply
@@ -19,9 +19,6 @@ struct FPlayerReply
 	
 	UPROPERTY(EditAnywhere)
 	FText Reply;
-	
-	UPROPERTY(EditAnywhere)
-	float ReplyDuration = 0.f;
 
 	UPROPERTY(EditAnywhere)
 	float Index = 0.f;

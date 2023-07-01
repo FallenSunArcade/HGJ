@@ -43,10 +43,15 @@ EBTNodeResult::Type UHG_PlayerReplies::ExecuteTask(UBehaviorTreeComponent& Owner
 	return EBTNodeResult::InProgress;
 }
 
-void UHG_PlayerReplies::ReplyWasSelected(float Duration, bool IsHostile, float Index)
+void UHG_PlayerReplies::ReplyWasSelected(FText ReplyText, bool IsHostile, float Index)
 {
 	UBlackboardComponent* BlackboardComponent = BTComponent->GetBlackboardComponent();
 
+	UHG_Dialog* DialogWidget = HudOverlay->GetDialogWidget();
+	DialogWidget->SetWidgetIndex(0);
+	DialogWidget->SetActiveWidgetVisibility(true);
+	DialogWidget->SetSpeakText(ReplyText);
+	
 	if(const AHG_CarnivalGameMode* GameMode = Cast<AHG_CarnivalGameMode>(UGameplayStatics::GetGameMode(GetWorld())))
 	{
 		GameMode->SpeakingDelegate.Broadcast(Index);
@@ -65,16 +70,16 @@ void UHG_PlayerReplies::ReplyWasSelected(float Duration, bool IsHostile, float I
 	{
 		RepliesObjects[i]->ReplySelectedDelegate.RemoveAll(this);
 	}
-	RepliesObjects.Empty();
 
-	UHG_Dialog* DialogWidget = HudOverlay->GetDialogWidget();
-	check(DialogWidget);
-	DialogWidget->SetActiveWidgetVisibility(false);
-
-	GetWorld()->GetTimerManager().SetTimer(ReplyHandle, this, &UHG_PlayerReplies::ReplyDone, Duration, false);
+	HudOverlay->OverlayClickedDelegate.AddDynamic(this, &UHG_PlayerReplies::ReplyDone);
 }
 
 void UHG_PlayerReplies::ReplyDone()
 {
+	HudOverlay->OverlayClickedDelegate.RemoveAll(this);
+	RepliesObjects.Empty();
+	UHG_Dialog* DialogWidget = HudOverlay->GetDialogWidget();
+	check(DialogWidget);
+	DialogWidget->SetActiveWidgetVisibility(false);
 	FinishLatentTask(*BTComponent, EBTNodeResult::Succeeded);
 }
