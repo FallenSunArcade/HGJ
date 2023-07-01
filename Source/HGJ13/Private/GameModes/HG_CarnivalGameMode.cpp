@@ -64,15 +64,6 @@ void AHG_CarnivalGameMode::SetupShootingBooth()
 	SetPlayerStart(TEXT("ShootingBooth"));
 
 	GetWorldTimerManager().SetTimer(EntranceDelayHandle, this, &AHG_CarnivalGameMode::StartEntranceDialog, .1f, false);
-	
-	if(ShootingBoothCharacters.Find("Mom"))
-	{
-		if (IHG_Interactable* InteractionComponent =
-		Cast<IHG_Interactable>(ShootingBoothCharacters["Mom"]->FindComponentByInterface(UHG_Interactable::StaticClass())))
-		{
-			InteractionComponent->SetInteractionVisibility_Implementation(true);
-		}
-	}
 }
 
 void AHG_CarnivalGameMode::EnableShootingBooth()
@@ -89,6 +80,14 @@ void AHG_CarnivalGameMode::EnableShootingBooth()
 
 void AHG_CarnivalGameMode::EnableShootingBoothCharacter(const FString& Name)
 {
+	if(ShootingBoothCharacters.Find(Name))
+	{
+		if (IHG_Interactable* InteractionComponent =
+		Cast<IHG_Interactable>(ShootingBoothCharacters[Name]->FindComponentByInterface(UHG_Interactable::StaticClass())))
+		{
+			InteractionComponent->SetInteractionVisibility_Implementation(true);
+		}
+	}
 }
 
 void AHG_CarnivalGameMode::EnableWoMShootingBooth()
