@@ -25,7 +25,7 @@ void AHG_Spawner::BeginPlay()
 		{
 			AHG_BaseCharacter* CharacterRef = GetWorld()->SpawnActor<AHG_BaseCharacter>(CharacterClass, GetActorTransform());
 			check(CharacterRef);
-			GameMode->AddShootingBoothCharacter(CharacterRef, CharacterName);
+			GameMode->AddSceneCharacter(CharacterRef, CharacterName);
 		}
 	}
 

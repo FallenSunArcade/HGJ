@@ -9,26 +9,7 @@ EBTNodeResult::Type UHG_EnableCharacter::ExecuteTask(UBehaviorTreeComponent& Own
 {
 	if(AHG_CarnivalGameMode* GameMode = Cast<AHG_CarnivalGameMode>(UGameplayStatics::GetGameMode(GetWorld())))
 	{
-		switch(GameBooth)
-		{
-		case EGameBooth::ShootingBooth:
-			{
-				GameMode->EnableShootingBoothCharacter(CharacterName);
-				break;
-			}
-		case EGameBooth::WhackAMole:
-			{
-				break;
-			}
-		case EGameBooth::DunkBooth:
-			{
-				break;
-			}
-		case EGameBooth::FerrisWheel:
-			{
-				break;
-			}
-		}
+		GameMode->EnableSceneCharacter(CharacterName);
 	}
 	return EBTNodeResult::Succeeded;
 }

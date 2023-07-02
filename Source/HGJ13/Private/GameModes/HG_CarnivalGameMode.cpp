@@ -17,7 +17,8 @@
 AHG_CarnivalGameMode::AHG_CarnivalGameMode()
 {
 	PrimaryActorTick.bCanEverTick = false;
-	EntranceDialogComponent = CreateDefaultSubobject<UHG_DialogComponent>(TEXT("Dialog Component"));
+	EntranceDialogComponent1 = CreateDefaultSubobject<UHG_DialogComponent>(TEXT("Booth1"));
+	EntranceDialogComponent2 = CreateDefaultSubobject<UHG_DialogComponent>(TEXT("Booth2"));
 }
 
 void AHG_CarnivalGameMode::BeginPlay()
@@ -78,12 +79,12 @@ void AHG_CarnivalGameMode::EnableShootingBooth()
 	}
 }
 
-void AHG_CarnivalGameMode::EnableShootingBoothCharacter(const FString& Name)
+void AHG_CarnivalGameMode::EnableSceneCharacter(const FString& Name)
 {
-	if(ShootingBoothCharacters.Find(Name))
+	if(SceneCharacters.Find(Name))
 	{
 		if (IHG_Interactable* InteractionComponent =
-		Cast<IHG_Interactable>(ShootingBoothCharacters[Name]->FindComponentByInterface(UHG_Interactable::StaticClass())))
+		Cast<IHG_Interactable>(SceneCharacters[Name]->FindComponentByInterface(UHG_Interactable::StaticClass())))
 		{
 			InteractionComponent->SetInteractionVisibility_Implementation(true);
 		}
@@ -129,6 +130,7 @@ void AHG_CarnivalGameMode::EnableWackAMole()
 void AHG_CarnivalGameMode::SetupWackAMole()
 {
 	SetPlayerStart(TEXT("WhackAMole"));
+	GetWorldTimerManager().SetTimer(EntranceDelayHandle, this, &AHG_CarnivalGameMode::StartEntranceDialog2, .1f, false);
 }
 
 void AHG_CarnivalGameMode::SetupDunkBooth()
@@ -151,16 +153,23 @@ void AHG_CarnivalGameMode::SetPlayerStart(const FString& StartTag)
 	}
 }
 
-void AHG_CarnivalGameMode::AddShootingBoothCharacter(AHG_BaseCharacter* Spawner, FString Name)
+void AHG_CarnivalGameMode::AddSceneCharacter(AHG_BaseCharacter* Spawner, FString Name)
 {
-	ShootingBoothCharacters.Emplace(Name, Spawner);
+	SceneCharacters.Emplace(Name, Spawner);
 }
 
 void AHG_CarnivalGameMode::StartEntranceDialog()
 {
-	EntranceDialogComponent->SetCanInteract(true);
-	EntranceDialogComponent->OnInteraction_Implementation(PlayerControllerRef);
-	EntranceDialogComponent->SetCanInteract(false);
+	EntranceDialogComponent1->SetCanInteract(true);
+	EntranceDialogComponent1->OnInteraction_Implementation(PlayerControllerRef);
+	EntranceDialogComponent1->SetCanInteract(false);
+}
+
+void AHG_CarnivalGameMode::StartEntranceDialog2()
+{
+	EntranceDialogComponent2->SetCanInteract(true);
+	EntranceDialogComponent2->OnInteraction_Implementation(PlayerControllerRef);
+	EntranceDialogComponent2->SetCanInteract(false);
 }
 
 

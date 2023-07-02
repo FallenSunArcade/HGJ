@@ -32,7 +32,7 @@ public:
 
 	void EnableShootingBooth();
 
-	void EnableShootingBoothCharacter(const FString& Name);
+	void EnableSceneCharacter(const FString& Name);
 
 	void EnableWoMShootingBooth();
 
@@ -48,7 +48,7 @@ public:
 
 	void SetPlayerStart(const FString& StartTag);
 
-	void AddShootingBoothCharacter(AHG_BaseCharacter* Spawner, FString Name);
+	void AddSceneCharacter(AHG_BaseCharacter* Spawner, FString Name);
 
 	void SetShootingBooth(AHG_ShootingBooth* Booth) { ShootingBooth = Booth;}
 
@@ -71,9 +71,15 @@ public:
 	UFUNCTION()
 	void StartEntranceDialog();
 
+	UFUNCTION()
+	void StartEntranceDialog2();
+
 private:
+	UPROPERTY(VisibleAnywhere)
+	UHG_DialogComponent* EntranceDialogComponent1;
+
 	UPROPERTY(EditAnywhere)
-	UHG_DialogComponent* EntranceDialogComponent;
+	UHG_DialogComponent* EntranceDialogComponent2;
 	
 	UPROPERTY()
 	AHG_PlayerController* PlayerControllerRef;
@@ -82,16 +88,7 @@ private:
 	UHG_GameInstance* GameInstanceRef;
 
 	UPROPERTY()
-	TMap<FString, AHG_BaseCharacter*> ShootingBoothCharacters;
-
-	UPROPERTY()
-	TMap<FString, AHG_BaseCharacter*> WhackAMoleCharacters;
-
-	UPROPERTY()
-	TMap<FString, AHG_BaseCharacter*> DunkBoothCharacters;
-
-	UPROPERTY()
-	TMap<FString, AHG_BaseCharacter*> FerrisWheelCharacters;
+	TMap<FString, AHG_BaseCharacter*> SceneCharacters;
 
 	UPROPERTY()
 	AHG_ShootingBooth* ShootingBooth;
