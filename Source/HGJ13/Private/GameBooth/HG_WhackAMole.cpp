@@ -11,6 +11,21 @@ AHG_WhackAMole::AHG_WhackAMole()
 	PrimaryActorTick.bCanEverTick = false;
 }
 
+void AHG_WhackAMole::TargetHit(bool Head)
+{
+	if(Head)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red,
+			FString::Printf(TEXT("Hit a head.")));
+	}
+	else
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red,
+		FString::Printf(TEXT("Hit a mole.")));
+	}
+	
+}
+
 void AHG_WhackAMole::BeginPlay()
 {
 	Super::BeginPlay();

@@ -43,8 +43,18 @@ public:
 
 	UFUNCTION(BlueprintCallable)
     void SetGameState(EGameStates NewState) {CurrentState = NewState;}
+
+	UFUNCTION(BlueprintCallable)
+	EDialogSections GetCurrentDialogSection() const {return CurrentDialogSection;}
+
+	UFUNCTION(BlueprintCallable)
+	void SetCurrentDialogSection(EDialogSections DialogSection) {CurrentDialogSection = DialogSection;}
+
 	
 private:
 	UPROPERTY(EditAnywhere, Category = "Game")
 	EGameStates CurrentState = EGameStates::ShootingBooth;
+
+	UPROPERTY(EditAnywhere, Category = "Game")
+	EDialogSections CurrentDialogSection = EDialogSections::Section1;
 };
