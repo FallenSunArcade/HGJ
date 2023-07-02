@@ -6,6 +6,7 @@
 #include "HG_GameBoothBase.h"
 #include "HG_WhackAMole.generated.h"
 
+
 UCLASS()
 class HGJ13_API AHG_WhackAMole : public AHG_GameBoothBase
 {
@@ -13,6 +14,8 @@ class HGJ13_API AHG_WhackAMole : public AHG_GameBoothBase
 
 public:
 	AHG_WhackAMole();
+
+	void TargetHit(bool Head);
 
 protected:
 	virtual void BeginPlay() override;
