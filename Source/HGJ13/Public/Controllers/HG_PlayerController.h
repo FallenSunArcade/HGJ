@@ -21,6 +21,7 @@ public:
 
 	void MakeTransition();
 
+	UFUNCTION(BlueprintCallable)
 	void CreateGameAlert(const FText& Alert, float Duration = 3.f);
 	
 protected:
