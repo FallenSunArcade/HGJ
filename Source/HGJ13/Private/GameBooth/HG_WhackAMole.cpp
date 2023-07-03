@@ -14,17 +14,8 @@ AHG_WhackAMole::AHG_WhackAMole()
 
 void AHG_WhackAMole::TargetHit(bool Head)
 {
-	if(Head)
-	{
-		GameOverDelegate.Broadcast(false);
-		GetWorldTimerManager().ClearTimer(RoundTimerHandle);
-	}
-	else
-	{
-		++CurrentScore;
-		ScoreBoard->SetScore(CurrentScore);
-	}
-	
+	++CurrentScore;
+	ScoreBoard->SetScore(CurrentScore);
 }
 
 void AHG_WhackAMole::StartRound()
