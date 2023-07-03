@@ -94,6 +94,9 @@ public:
 	UFUNCTION()
 	void StartEntranceDialog4();
 
+	UFUNCTION(BlueprintCallable)
+	void StartFinalDialog();
+
 private:
 	UPROPERTY(VisibleAnywhere)
 	UHG_DialogComponent* EntranceDialogComponent1;
@@ -106,6 +109,9 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	UHG_DialogComponent* EntranceDialogComponent4;
+
+	UPROPERTY(EditAnywhere)
+	UHG_DialogComponent* FinalDialogComponent;
 	
 	UPROPERTY()
 	AHG_PlayerController* PlayerControllerRef;

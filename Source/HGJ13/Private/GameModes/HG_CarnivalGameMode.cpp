@@ -23,6 +23,8 @@ AHG_CarnivalGameMode::AHG_CarnivalGameMode()
 	EntranceDialogComponent2 = CreateDefaultSubobject<UHG_DialogComponent>(TEXT("Booth2"));
 	EntranceDialogComponent3 = CreateDefaultSubobject<UHG_DialogComponent>(TEXT("Booth3"));
 	EntranceDialogComponent4 = CreateDefaultSubobject<UHG_DialogComponent>(TEXT("Booth4"));
+
+	FinalDialogComponent = CreateDefaultSubobject<UHG_DialogComponent>(TEXT("Final Dialogue"));
 }
 
 void AHG_CarnivalGameMode::BeginPlay()
@@ -58,6 +60,8 @@ void AHG_CarnivalGameMode::BeginPlay()
 		SetupFerrisWheel();
 		break;
 	case EGameStates::DreamWorld4:
+		break;
+	case EGameStates::GameEnd:
 		break;
 	default:
 		break;
@@ -218,6 +222,13 @@ void AHG_CarnivalGameMode::StartEntranceDialog4()
 	EntranceDialogComponent4->SetCanInteract(true);
 	EntranceDialogComponent4->OnInteraction_Implementation(PlayerControllerRef);
 	EntranceDialogComponent4->SetCanInteract(false);
+}
+
+void AHG_CarnivalGameMode::StartFinalDialog()
+{
+	FinalDialogComponent->SetCanInteract(true);
+	FinalDialogComponent->OnInteraction_Implementation(PlayerControllerRef);
+	FinalDialogComponent->SetCanInteract(false);
 }
 
 

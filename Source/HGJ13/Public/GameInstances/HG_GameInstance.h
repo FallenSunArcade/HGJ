@@ -15,7 +15,8 @@ enum class EGameStates : uint8 {
 	DunkTank,
 	DreamWorld3,
 	FerrisWheel,
-	DreamWorld4
+	DreamWorld4,
+	GameEnd
 };
 
 UENUM(BlueprintType)
