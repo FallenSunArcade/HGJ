@@ -16,7 +16,7 @@ class HGJ13_API UHG_GameAlerts : public UUserWidget
 	GENERATED_BODY()
 
 public:
-	void DisplayAlert(const FText& Alert);
+	void DisplayAlert(const FText& Alert, float Duration = 3.f);
 
 	UPROPERTY(BlueprintAssignable)
 	FAlertDelegate AlertDelegate;

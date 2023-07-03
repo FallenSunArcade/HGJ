@@ -18,4 +18,7 @@ public:
 private:
 	UPROPERTY(EditAnywhere)
 	FText AlertMessage;
+
+	UPROPERTY(EditAnywhere)
+	float Duration = 3.f;
 };

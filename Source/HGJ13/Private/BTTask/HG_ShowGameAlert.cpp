@@ -10,6 +10,6 @@ EBTNodeResult::Type UHG_ShowGameAlert::ExecuteTask(UBehaviorTreeComponent& Owner
 	AHG_PlayerController* PlayerController = Cast<AHG_PlayerController>( UGameplayStatics::GetPlayerController(GetWorld(), 0));
 	check(PlayerController);
 	
-	PlayerController->CreateGameAlert(AlertMessage);
+	PlayerController->CreateGameAlert(AlertMessage, Duration);
 	return EBTNodeResult::Succeeded;
 }

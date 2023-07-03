@@ -78,10 +78,10 @@ void AHG_PlayerController::MakeTransition()
 	HudOverlay->StartGameTransition(1.f);
 }
 
-void AHG_PlayerController::CreateGameAlert(const FText& Alert)
+void AHG_PlayerController::CreateGameAlert(const FText& Alert, float Duration)
 {
 	UHG_GameAlerts* GameAlertsWidget = HudOverlay->GetGameAlertsWidget();
 	check(GameAlertsWidget);
-	GameAlertsWidget->DisplayAlert(Alert);
+	GameAlertsWidget->DisplayAlert(Alert, Duration);
 }
 

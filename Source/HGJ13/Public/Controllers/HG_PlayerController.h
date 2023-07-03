@@ -21,7 +21,7 @@ public:
 
 	void MakeTransition();
 
-	void CreateGameAlert(const FText& Alert);
+	void CreateGameAlert(const FText& Alert, float Duration = 3.f);
 	
 protected:
 	virtual void BeginPlay() override;

@@ -5,7 +5,7 @@
 
 #include "Components/TextBlock.h"
 
-void UHG_GameAlerts::DisplayAlert(const FText& Alert)
+void UHG_GameAlerts::DisplayAlert(const FText& Alert, float Duration)
 {
 	AlertDelegate.Broadcast();
 	AlertMessage->SetText(Alert);
