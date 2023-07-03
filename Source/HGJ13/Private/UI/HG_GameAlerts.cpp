@@ -10,7 +10,7 @@ void UHG_GameAlerts::DisplayAlert(const FText& Alert, float Duration)
 	AlertDelegate.Broadcast();
 	AlertMessage->SetText(Alert);
 	SetVisibility(ESlateVisibility::Visible);
-	GetWorld()->GetTimerManager().SetTimer(AlertTimerHandle, this, &UHG_GameAlerts::RemoveAlert, 3.f);
+	GetWorld()->GetTimerManager().SetTimer(AlertTimerHandle, this, &UHG_GameAlerts::RemoveAlert, Duration);
 }
 
 void UHG_GameAlerts::NativeOnInitialized()
