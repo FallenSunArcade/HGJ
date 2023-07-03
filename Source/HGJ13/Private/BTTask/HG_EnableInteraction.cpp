@@ -38,6 +38,7 @@ EBTNodeResult::Type UHG_EnableInteraction::ExecuteTask(UBehaviorTreeComponent& O
 			}
 		case EInteractable::DunkBooth:
 			{
+				GameMode->EnableDunkBooth();
 				break;
 			}
 		case EInteractable::FerrisWheel:
