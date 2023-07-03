@@ -20,6 +20,8 @@ AHG_CarnivalGameMode::AHG_CarnivalGameMode()
 	PrimaryActorTick.bCanEverTick = false;
 	EntranceDialogComponent1 = CreateDefaultSubobject<UHG_DialogComponent>(TEXT("Booth1"));
 	EntranceDialogComponent2 = CreateDefaultSubobject<UHG_DialogComponent>(TEXT("Booth2"));
+	EntranceDialogComponent3 = CreateDefaultSubobject<UHG_DialogComponent>(TEXT("Booth3"));
+	EntranceDialogComponent4 = CreateDefaultSubobject<UHG_DialogComponent>(TEXT("Booth4"));
 }
 
 void AHG_CarnivalGameMode::BeginPlay()
@@ -149,6 +151,7 @@ void AHG_CarnivalGameMode::SetupWackAMole()
 void AHG_CarnivalGameMode::SetupDunkBooth()
 {
 	SetPlayerStart(TEXT("DunkBooth"));
+	GetWorldTimerManager().SetTimer(EntranceDelayHandle, this, &AHG_CarnivalGameMode::StartEntranceDialog3, .1f, false);
 }
 
 void AHG_CarnivalGameMode::SetupFerrisWheel()
@@ -188,6 +191,20 @@ void AHG_CarnivalGameMode::StartEntranceDialog2()
 	EntranceDialogComponent2->SetCanInteract(true);
 	EntranceDialogComponent2->OnInteraction_Implementation(PlayerControllerRef);
 	EntranceDialogComponent2->SetCanInteract(false);
+}
+
+void AHG_CarnivalGameMode::StartEntranceDialog3()
+{
+	EntranceDialogComponent3->SetCanInteract(true);
+	EntranceDialogComponent3->OnInteraction_Implementation(PlayerControllerRef);
+	EntranceDialogComponent3->SetCanInteract(false);
+}
+
+void AHG_CarnivalGameMode::StartEntranceDialog4()
+{
+	EntranceDialogComponent4->SetCanInteract(true);
+	EntranceDialogComponent4->OnInteraction_Implementation(PlayerControllerRef);
+	EntranceDialogComponent4->SetCanInteract(false);
 }
 
 

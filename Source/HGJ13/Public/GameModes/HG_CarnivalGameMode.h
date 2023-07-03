@@ -81,12 +81,24 @@ public:
 	UFUNCTION()
 	void StartEntranceDialog2();
 
+	UFUNCTION()
+	void StartEntranceDialog3();
+
+	UFUNCTION()
+	void StartEntranceDialog4();
+
 private:
 	UPROPERTY(VisibleAnywhere)
 	UHG_DialogComponent* EntranceDialogComponent1;
 
 	UPROPERTY(EditAnywhere)
 	UHG_DialogComponent* EntranceDialogComponent2;
+
+	UPROPERTY(EditAnywhere)
+	UHG_DialogComponent* EntranceDialogComponent3;
+
+	UPROPERTY(EditAnywhere)
+	UHG_DialogComponent* EntranceDialogComponent4;
 	
 	UPROPERTY()
 	AHG_PlayerController* PlayerControllerRef;
