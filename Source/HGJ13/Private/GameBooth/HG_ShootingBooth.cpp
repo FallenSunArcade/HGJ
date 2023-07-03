@@ -109,21 +109,6 @@ void AHG_ShootingBooth::RoundTick()
 
 void AHG_ShootingBooth::RemoveDuck(bool IsHead)
 {
-	if(IsHead)
-	{
-		GameOverDelegate.Broadcast(false);
-		RoundOverDelegate.Broadcast();
-		for(int i = 0; i < Targets.Num(); ++i)
-		{
-			if(Targets[i])
-			{
-				Targets[i]->DuckDestroyedDelegate.RemoveAll(this);
-				Targets[i]->Destroy();
-			}
-		}
-		Targets.Empty();
-		GetWorldTimerManager().ClearTimer(RoundTimerHandle);
-	}
 	--NumTargets;
 	++CurrentScore;
 	ScoreBoard->SetScore(CurrentScore);
