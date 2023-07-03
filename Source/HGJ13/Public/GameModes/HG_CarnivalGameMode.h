@@ -20,6 +20,7 @@ class AHG_WoM;
 class UHG_DialogComponent;
 class AHG_WhackAMole;
 class AHG_InteractionSphere;
+class AHG_DunkBooth;
 
 UCLASS()
 class HGJ13_API AHG_CarnivalGameMode : public AGameModeBase
@@ -47,6 +48,8 @@ public:
 
 	void SetupWackAMole();
 
+	void EnableDunkBooth();
+	
 	void SetupDunkBooth();
 
 	void SetupFerrisWheel();
@@ -60,6 +63,10 @@ public:
 	void SetShootingBooth(AHG_ShootingBooth* Booth) { ShootingBooth = Booth;}
 
 	AHG_ShootingBooth* GetShootingBooth() const { return ShootingBooth;}
+
+	void SetDunkBooth(AHG_DunkBooth* Booth) { DunkBooth = Booth;}
+
+	AHG_DunkBooth* GetDunkBooth() const { return DunkBooth;}
 
 	void SetWomShootingBooth(AHG_WoM* W) { WoMShootingBooth = W;}
 
@@ -118,6 +125,9 @@ private:
 	UPROPERTY()
 	AHG_WhackAMole* WhackAMole;
 
+	UPROPERTY()
+	AHG_DunkBooth* DunkBooth;
+	
 	UPROPERTY()
 	AHG_WoM* WoMShootingBooth;
 

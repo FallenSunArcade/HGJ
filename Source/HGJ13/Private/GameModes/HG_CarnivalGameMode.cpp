@@ -13,6 +13,7 @@
 #include "Components/HG_DialogComponent.h"
 #include "GameBooth/HG_WhackAMole.h"
 #include "Actors/HG_InteractionSphere.h"
+#include "GameBooth/HG_DunkBooth.h"
 
 
 AHG_CarnivalGameMode::AHG_CarnivalGameMode()
@@ -146,6 +147,18 @@ void AHG_CarnivalGameMode::SetupWackAMole()
 {
 	SetPlayerStart(TEXT("WhackAMole"));
 	GetWorldTimerManager().SetTimer(EntranceDelayHandle, this, &AHG_CarnivalGameMode::StartEntranceDialog2, .1f, false);
+}
+
+void AHG_CarnivalGameMode::EnableDunkBooth()
+{
+	if(DunkBooth)
+	{
+		if (IHG_Interactable* InteractionComponent =
+			Cast<IHG_Interactable>(DunkBooth->FindComponentByInterface(UHG_Interactable::StaticClass())))
+		{
+			InteractionComponent->SetInteractionVisibility_Implementation(true);
+		}
+	}
 }
 
 void AHG_CarnivalGameMode::SetupDunkBooth()
