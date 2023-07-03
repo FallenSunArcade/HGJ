@@ -38,6 +38,11 @@ void AHG_InteractionSphere::BeginPlay()
 				GameMode->AddInteractionSphere(this, InteractionSphere);
 				break;
 			}
+		case EInteractionSphere::SphereDunk:
+			{
+				GameMode->AddInteractionSphere(this, InteractionSphere);
+				break;
+			}
 		default:
 			break;
 		}

@@ -8,7 +8,8 @@
 
 UENUM(BlueprintType)
 enum class EInteractionSphere : uint8 {
-	SphereMole
+	SphereMole,
+	SphereDunk
 };
 
 class UHG_DialogComponent;
