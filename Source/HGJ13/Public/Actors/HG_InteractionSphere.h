@@ -6,8 +6,13 @@
 #include "GameFramework/Actor.h"
 #include "HG_InteractionSphere.generated.h"
 
+UENUM(BlueprintType)
+enum class EInteractionSphere : uint8 {
+	SphereMole
+};
 
-class UStaticMeshComponent;
+class UHG_DialogComponent;
+class USphereComponent;
 
 UCLASS()
 class HGJ13_API AHG_InteractionSphere : public AActor
@@ -17,11 +22,32 @@ class HGJ13_API AHG_InteractionSphere : public AActor
 public:
 	AHG_InteractionSphere();
 
-	UPROPERTY(EditAnywhere)
-	UStaticMeshComponent* MeshComponent;
-	
 protected:
 	virtual void BeginPlay() override;
 
+private:
+	UPROPERTY(EditAnywhere)
+	UHG_DialogComponent* DialogComponent;
+	
+	UPROPERTY(EditAnywhere)
+	USphereComponent* SphereComponent;
+	
+	UPROPERTY(EditAnywhere)
+	EInteractionSphere InteractionSphere = EInteractionSphere::SphereMole;
 
+	UFUNCTION()
+	void OverlapBegin(
+		UPrimitiveComponent* OverlappedComponent,
+		AActor* OtherActor,
+		UPrimitiveComponent* OtherComp,
+		int32 OtherBodyIndex,
+		bool bFromSweep,
+		const FHitResult & SweepResult);
+
+	UFUNCTION()
+	void OverlapEnd(
+		UPrimitiveComponent* OverlappedComponent,
+		AActor* OtherActor,
+		UPrimitiveComponent* OtherComp,
+		int32 OtherBodyIndex);
 };

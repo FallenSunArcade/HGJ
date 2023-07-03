@@ -13,27 +13,21 @@ EBTNodeResult::Type UHG_PlayWackAMole::ExecuteTask(UBehaviorTreeComponent& Owner
 	if(const AHG_CarnivalGameMode* GameMode = Cast<AHG_CarnivalGameMode>(UGameplayStatics::GetGameMode(GetWorld())))
 	{
 		AHG_WhackAMole* WhackAMole = GameMode->GetWhackAMole();
-
 		check(WhackAMole);
-
-		WhackAMole->RoundStartDelegate.Broadcast(0);
-
-		GetWorld()->GetTimerManager().SetTimer(GameTimerHandle, this, &UHG_PlayWackAMole::GameOver, 30.f);
+		WhackAMole->GameOverDelegate.AddDynamic(this, &UHG_PlayWackAMole::GameOver);
+		WhackAMole->StartRound();
 	}                 
 
 	return EBTNodeResult::InProgress;
 }
 
-void UHG_PlayWackAMole::GameOver()
+void UHG_PlayWackAMole::GameOver(bool Won)
 {
 	if(const AHG_CarnivalGameMode* GameMode = Cast<AHG_CarnivalGameMode>(UGameplayStatics::GetGameMode(GetWorld())))
 	{
 		AHG_WhackAMole* WhackAMole = GameMode->GetWhackAMole();
-
 		check(WhackAMole);
-
-		WhackAMole->RoundOverDelegate.Broadcast();
-		
+		WhackAMole->GameOverDelegate.RemoveAll(this);
 	}
 
 	FinishLatentTask(*BTComponent, EBTNodeResult::Succeeded);

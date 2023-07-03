@@ -17,12 +17,10 @@ class HGJ13_API UHG_PlayWackAMole : public UBTTask_BlackboardBase
 public:
 	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
 
-private:
 	UFUNCTION()
-	void GameOver();
-
+	void GameOver(bool Won);
+	
+private:
 	UPROPERTY()
 	UBehaviorTreeComponent* BTComponent = nullptr;
-	
-	FTimerHandle GameTimerHandle;
 };

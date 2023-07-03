@@ -31,7 +31,7 @@ void AHG_ShootingBooth::StartRound()
 	ScoreBoard->SetScore(CurrentScore);
 	ScoreBoard->SetTime(10);
 	
-	RoundTime = 10;
+	RoundTime = MaxRoundTime;
 	NumTargets = 10;
 	
 	switch (CurrentRound)

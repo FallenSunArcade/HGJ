@@ -16,14 +16,19 @@ EBTNodeResult::Type UHG_EnableInteraction::ExecuteTask(UBehaviorTreeComponent& O
 				GameMode->EnableShootingBooth();
 				break;
 			}
-		case EInteractable::WhackAMole:
-			{
-				GameMode->EnableWackAMole();
-				break;
-			}
 		case EInteractable::WoMShootingBooth:
 			{
 				GameMode->EnableWoMShootingBooth();
+				break;
+			}
+		case EInteractable::InteractionSphereMole:
+			{
+				GameMode->EnableWoMShootingBooth();
+				break;
+			}
+		case EInteractable::WackAMole:
+			{
+				GameMode->EnableWackAMole();
 				break;
 			}
 		case EInteractable::WoMWackAMole:

@@ -12,6 +12,7 @@
 #include "Actors/HG_WoM.h"
 #include "Components/HG_DialogComponent.h"
 #include "GameBooth/HG_WhackAMole.h"
+#include "Actors/HG_InteractionSphere.h"
 
 
 AHG_CarnivalGameMode::AHG_CarnivalGameMode()
@@ -91,6 +92,18 @@ void AHG_CarnivalGameMode::EnableSceneCharacter(const FString& Name)
 	}
 }
 
+void AHG_CarnivalGameMode::EnableInteractionSphere(const EInteractionSphere& Sphere)
+{
+	if(InteractionSpheres.Find(Sphere))
+	{
+		if (IHG_Interactable* InteractionComponent =
+Cast<IHG_Interactable>(InteractionSpheres[Sphere]->FindComponentByInterface(UHG_Interactable::StaticClass())))
+		{
+			InteractionComponent->SetInteractionVisibility_Implementation(true);
+		}
+	}
+}
+
 void AHG_CarnivalGameMode::EnableWoMShootingBooth()
 {
 	if(WoMShootingBooth)
@@ -156,6 +169,11 @@ void AHG_CarnivalGameMode::SetPlayerStart(const FString& StartTag)
 void AHG_CarnivalGameMode::AddSceneCharacter(AHG_BaseCharacter* Spawner, FString Name)
 {
 	SceneCharacters.Emplace(Name, Spawner);
+}
+
+void AHG_CarnivalGameMode::AddInteractionSphere(AHG_InteractionSphere* Sphere, const EInteractionSphere& Type)
+{
+	InteractionSpheres.Emplace(Type, Sphere);
 }
 
 void AHG_CarnivalGameMode::StartEntranceDialog()

@@ -55,6 +55,9 @@ private:
 	
 	FTimerHandle RoundTimerHandle;
 
+	UPROPERTY(EditAnywhere)
+	int32 MaxRoundTime = 15;
+	
 	int32 RoundTime = 0;
 
 	int32 NumTargets = 0;

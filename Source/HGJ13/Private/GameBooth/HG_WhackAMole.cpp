@@ -4,6 +4,7 @@
 #include "GameBooth/HG_WhackAMole.h"
 #include "GameModes/HG_CarnivalGameMode.h"
 #include "Kismet/GameplayStatics.h"
+#include "Components/HG_GameBoard.h"
 
 
 AHG_WhackAMole::AHG_WhackAMole()
@@ -15,15 +16,47 @@ void AHG_WhackAMole::TargetHit(bool Head)
 {
 	if(Head)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red,
-			FString::Printf(TEXT("Hit a head.")));
+		GameOverDelegate.Broadcast(false);
+		GetWorldTimerManager().ClearTimer(RoundTimerHandle);
 	}
 	else
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red,
-		FString::Printf(TEXT("Hit a mole.")));
+		++CurrentScore;
+		ScoreBoard->SetScore(CurrentScore);
 	}
 	
+}
+
+void AHG_WhackAMole::StartRound()
+{
+	ScoreBoard->SetScore(0);
+	ScoreBoard->SetTime(MaxRoundTime);
+
+	RoundTime = MaxRoundTime;
+	NumTargets = 10;
+
+	GetWorldTimerManager().SetTimer(RoundTimerHandle, this, &AHG_WhackAMole::RoundTick, 1.f, true, 1.f);
+}
+
+void AHG_WhackAMole::RoundTick()
+{
+	--RoundTime;
+	
+	ScoreBoard->SetTime(RoundTime);
+
+	if(RoundTime <= 0)
+	{
+		GetWorldTimerManager().ClearTimer(RoundTimerHandle);
+
+		if(CurrentScore > 13)
+		{
+			GameOverDelegate.Broadcast(true);
+		}
+		else
+		{
+			GameOverDelegate.Broadcast(false);
+		}
+	}
 }
 
 void AHG_WhackAMole::BeginPlay()
@@ -33,4 +66,6 @@ void AHG_WhackAMole::BeginPlay()
 	AHG_CarnivalGameMode* GameMode = Cast<AHG_CarnivalGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
 	check(GameMode);
 	GameMode->SetWhackAMole(this);
+
+	ScoreBoard->SetScore(13);
 }

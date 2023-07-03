@@ -17,6 +17,22 @@ public:
 
 	void TargetHit(bool Head);
 
+	void StartRound();
+
+	UFUNCTION()
+	void RoundTick();
+	
 protected:
 	virtual void BeginPlay() override;
+
+	FTimerHandle RoundTimerHandle;
+	
+	UPROPERTY(EditAnywhere)
+	int32 MaxRoundTime = 30;
+	
+	int32 RoundTime = 0;
+
+	int32 NumTargets = 0;
+
+	int32 CurrentScore = 0;
 };

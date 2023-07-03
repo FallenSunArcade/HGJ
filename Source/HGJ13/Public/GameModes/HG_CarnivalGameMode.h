@@ -6,10 +6,12 @@
 #include "GameFramework/GameModeBase.h"
 #include "HG_CarnivalGameMode.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FSpeakingDelegate, float, DialogueIndex);
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FSpeakingDelegate, float, DialogueIndex);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FEntranceDelegate);
 
+
+enum class EInteractionSphere : uint8;
 class AHG_PlayerController;
 class UHG_GameInstance;
 class AHG_BaseCharacter;
@@ -17,6 +19,7 @@ class AHG_ShootingBooth;
 class AHG_WoM;
 class UHG_DialogComponent;
 class AHG_WhackAMole;
+class AHG_InteractionSphere;
 
 UCLASS()
 class HGJ13_API AHG_CarnivalGameMode : public AGameModeBase
@@ -34,6 +37,8 @@ public:
 
 	void EnableSceneCharacter(const FString& Name);
 
+	void EnableInteractionSphere(const EInteractionSphere& Sphere);
+
 	void EnableWoMShootingBooth();
 
 	void EnableWomWhackAMole();
@@ -49,6 +54,8 @@ public:
 	void SetPlayerStart(const FString& StartTag);
 
 	void AddSceneCharacter(AHG_BaseCharacter* Spawner, FString Name);
+
+	void AddInteractionSphere(AHG_InteractionSphere* Sphere, const EInteractionSphere& Type);
 
 	void SetShootingBooth(AHG_ShootingBooth* Booth) { ShootingBooth = Booth;}
 
@@ -89,6 +96,9 @@ private:
 
 	UPROPERTY()
 	TMap<FString, AHG_BaseCharacter*> SceneCharacters;
+
+	UPROPERTY()
+	TMap<EInteractionSphere, AHG_InteractionSphere*> InteractionSpheres;
 
 	UPROPERTY()
 	AHG_ShootingBooth* ShootingBooth;
