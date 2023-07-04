@@ -6,7 +6,6 @@
 
 UHG_GameBoard::UHG_GameBoard()
 {
-
 	PrimaryComponentTick.bCanEverTick = true;
 }
 

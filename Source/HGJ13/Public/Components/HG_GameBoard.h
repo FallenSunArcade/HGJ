@@ -8,7 +8,6 @@
 
 class UHG_ScoreTime;
 
-
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class HGJ13_API UHG_GameBoard : public UWidgetComponent
 {
