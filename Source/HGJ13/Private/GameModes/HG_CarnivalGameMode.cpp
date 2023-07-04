@@ -68,6 +68,11 @@ void AHG_CarnivalGameMode::BeginPlay()
 	}
 }
 
+void AHG_CarnivalGameMode::SpeakLine(float DialogueIndex)
+{
+	SpeakingDelegate.Broadcast(DialogueIndex);
+}
+
 void AHG_CarnivalGameMode::SetupShootingBooth()
 {
 	SetPlayerStart(TEXT("ShootingBooth"));
