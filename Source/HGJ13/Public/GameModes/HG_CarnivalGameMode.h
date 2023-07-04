@@ -32,6 +32,9 @@ public:
 	
 	virtual void BeginPlay() override;
 
+	UFUNCTION(BlueprintCallable)
+	void SpeakLine(float DialogueIndex);
+
 	void SetupShootingBooth();
 
 	void EnableShootingBooth();
