@@ -36,6 +36,7 @@ void UHG_DialogComponent::OnInteraction_Implementation(AHG_PlayerController* Pla
 		if(PlayerController)
 		{
 			FInputModeUIOnly InputModeUIOnly;
+			InputModeUIOnly.SetLockMouseToViewportBehavior(EMouseLockMode::LockAlways);
 			PlayerController->SetInputMode(InputModeUIOnly);
 			PlayerController->FlushPressedKeys();
 			PlayerController->SetShowMouseCursor(true);

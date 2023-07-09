@@ -11,7 +11,8 @@ EBTNodeResult::Type UHG_SetModeToUI::ExecuteTask(UBehaviorTreeComponent& OwnerCo
 	AHG_PlayerController* PlayerController = Cast<AHG_PlayerController>( UGameplayStatics::GetPlayerController(GetWorld(), 0));
 	check(PlayerController);
 
-	const FInputModeUIOnly InputModeUIOnly;
+	FInputModeUIOnly InputModeUIOnly;
+	InputModeUIOnly.SetLockMouseToViewportBehavior(EMouseLockMode::LockAlways);
 	PlayerController->SetInputMode(InputModeUIOnly);
 	PlayerController->SetShowMouseCursor(true);
 	return EBTNodeResult::Succeeded;
